@@ -1,47 +1,95 @@
 <script>
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+
 </script>
 
-<main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
-
-  <div class="card">
-    <Counter />
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
-</main>
+<body>
+  <header>
+    <img src="src\assets\lightbulb.png" alt="" width="100px">
+    <h1 class="title">Smart Lightbulb</h1>
+  </header>
+  <nav>
+    <ul>
+      <li>Controls</li>
+      <li>|</li>
+      <li>Indicators</li>
+      <li>|</li>
+      <li>Settings</li>
+    </ul>
+  </nav>
+  <main>
+    <!-- WE GOT 2 OPTIONS IMO, 1.) ALL ON ONE PAGE HIDE AND BLOCK DISPLAY 2.) SEPERATE PAGES FOR EACH LI ^^ -->
+    <!-- FOR NOW I WILL JUST HIDE AND BLOCK -->
+     <div class="controls"></div>
+     <div class="indicators" style="display: none;"></div>
+     <div class="settings" style="display: none;"></div>
+  </main>
+</body>
 
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
+  body {
+    position: absolute;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+    background-color: rgb(255, 255, 255);
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    color: black;
+
+    padding: 0;
+    margin: 0;
   }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
+
+  header {
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 20px;
+
+    position: absolute;
+    top: 0;
+    color: white;
+    height: 15%;
+
+    width: 100%;
+    padding: 20px;
+    
+    background-image: url('/src/assets/header-background.jpg');
+    background-position: 20px 600px;
+    border-bottom: rgba(216, 216, 216, 0.6) 2px solid;
   }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
+
+  nav {
+    position: relative;
+
+    width: 100%;
+    top: 167px;
+
+    background-color: rgb(243, 243, 243);
   }
-  .read-the-docs {
-    color: #888;
+
+  ul {
+    list-style: none;
+
+    padding: 10px 0px;
+
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+
+    justify-content: center;
+  }
+
+  li:hover {
+    cursor: pointer;
+  }
+
+  main{
+    position: relative;
+    background-color: red;
   }
 </style>
