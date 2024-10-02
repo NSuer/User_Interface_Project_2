@@ -20,9 +20,9 @@ Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
 - Do you plan to have regular meetings? 
     - Wednesday in-person after class or on discord if that doesn't work one week.
 - Have you discussed team conflicts or obligations during the project time-frame? 
-    - Sam Weese and I will be fighting after class next week
+    - 
 - How will you divide the work? 
-    - We will force the teammate with the best overwatch skills to do all the work
+    - 
 
 
 # AI Use
