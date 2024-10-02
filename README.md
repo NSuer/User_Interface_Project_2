@@ -12,17 +12,28 @@ Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
 Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
 
 - What will you do to make sure your team is successful. 
-    - We will ensure that we have thoughful and efficient communication. We will make sure that everyone in the team is collaborating. We will foster a team of diverse thinkers in order to fix our problems.
+    - We will ensure that we have thoughful and efficient communication. We will make sure that everyone in the team is collaborating. We will foster a team of diverse thinkers in order to come up with the best solutions.
 - How will you communicate? 
-    - Discord Groupchat
+    - Discord Groupchat.
 - How will you coordinate work? 
-    - We will use a github repo and each person will have parts of the project they are a part of
+    - We will use a github repo and each person will have parts of the project they are in charge of.
 - Do you plan to have regular meetings? 
     - Wednesday in-person after class or on discord if that doesn't work one week.
 - Have you discussed team conflicts or obligations during the project time-frame? 
-    - 
+    - There are no conflicts we know of.
 - How will you divide the work? 
-    - 
+    - For now, we will divide work based on skillsets due to not knowing the full extent of our project. As the project goes on, we will attempt to keep the workloads balanced while providing support to those who need it. 
+    - Week 1 goals:
+        - Sam 
+            - Interviews
+        - Owen
+            - General UI layout
+        - Nate 
+            - Project setup and github repo
+        - William 
+            - User needs 
+        
+
 
 
 # AI Use
