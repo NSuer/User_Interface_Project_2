@@ -36,23 +36,42 @@ Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
 
 
 
-# AI Use
-- I used the following prompt "Using svelte and js, make me a component that will allow me to design floorplans for houses. All floorplans are one floor. Have options for doors, lights, and walls" to get the basic room maker. It was functional. This was useful but only will be used as a basis for future work. Here is an image of what was made
-![Room Maker](src/pictures/basicRoomMaker.png)
 
 
-# Affordances
+# Design
+
+## Affordances
 - A smart lightbulb would afford providing light when turned on 
 - A smart lightbulb would afford remote control via a mobile app
 - A smart lightbulb would afford changing color and brightness
 - A smart lightbulb would afford integrating with other smart lightbulbs or devices 
 
-# Interviews
+## Interviews
 
 
-# User Needs
+## User Needs
 
 
-# Design Requirements
-message.txt
-3 KB
+## Design Requirements
+
+## Sketching 
+
+### Sketching design alternatives to 3 design challenges (10-plus-10)
+
+### Sketching the interface ("the vanilla sketch") 
+
+### Storyboard sketch
+
+### Hybrid sketching to illustrate the integration of the interface on a real object
+- So we're designing a smart lightbulb, a user wants to control the lightbulb via an app.
+- But sice it needs to be physical and digitize something that is usually physical, it would be good to replace the light switches with our interface.
+- For our hybird sketch I will be integrating our smart lightbulb interface to replace a light switch.
+- This is my puppy Millie.
+![Hybrid Sketch](src/pictures/HybridSketch.png)
+
+## User Feedback
+
+
+# AI Use
+- I used the following prompt "Using svelte and js, make me a component that will allow me to design floorplans for houses. All floorplans are one floor. Have options for doors, lights, and walls" to get the basic room maker. It was functional. This was useful but only will be used as a basis for future work. Here is an image of what was made
+![Room Maker](src/pictures/basicRoomMaker.png)
