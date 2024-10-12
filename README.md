@@ -46,11 +46,21 @@ Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
 - A smart lightbulb would afford changing color and brightness
 - A smart lightbulb would afford integrating with other smart lightbulbs or devices 
 
+## Physical Properties
+- The lightbulb itself will be fixed due to being connected to the ceiling 
+- It will be the size of a normal lightbulb, so it will not be too large
+- The interface will be an app, so its size can vary based on the device it is being used on 
+
 ## Interviews
 
+## Assumptions
+- The smart lightbulb will track its temperature
+- The smart lightbulb will keep track of its current color setting and have functionality for said color to be changed 
+- The smart lightbulb will have its location within the house stored, allowing the user to adjust lightbulbs remotely
+- The smart lightbulb will have multiple settings, including being on between certain hours and maintaining a certain color or pattern
+- The smart lightbulb will track its energy usage
 
 ## User Needs
-
 
 ## Design Requirements
 
