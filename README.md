@@ -52,7 +52,60 @@ Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
 - The interface will be an app, so its size can vary based on the device it is being used on 
 
 ## Interviews
+### Questions
+    - 1. If you had a lightbulb app, which tracked color changing lightbulbs, what features would you want?
+      2. How often would you use the lightbulbs?
+      3. If you have color changing lightbulbs, what do you currently use to control them?
+          4.  What features do you like of the current control system?
+      5. What statistics, if any, do you want tracked with your lightbulb?
+      6. What options do you want visible upon viewing an individual lightbulb?
+      7. Is there any way you would like lightbulbs grouped?   
 
+### Interview 1:
+      1. If you had a lightbulb app, which tracked color changing lightbulbs, what features would you want?
+      - Grouping together lightbulbs, notes on lightbulbs, schedule on lightbulb, multiple color patterns on lighbulbs
+      2. How often would you use the lightbulbs?
+         - Every day. 
+      4. If you have color changing lightbulbs, what do you currently use to control them?
+          - Has color changing lightbulbs, doesn't change them unless necessary. Uses default Lumiman app.
+          4.  What features do you like of the current control system?
+              - Color wheel.
+      5. What statistics, if any, do you want tracked with your lightbulb?
+          - Days used, time since installation, hours estimated left
+      6. What options do you want visible upon viewing an individual lightbulb?
+          - Name, description, color, schedule
+      7. Is there any way you would like lightbulbs grouped?
+          - By room and by schedule
+### Interview 2:
+      1. If you had a lightbulb app, which tracked color changing lightbulbs, what features would you want?
+      - Grouping together lightbulbs, multiple color patterns on lighbulbs, patterns on lightbulbs by room
+      2. How often would you use the lightbulbs?
+         - Every day, probably changing the themes by room by time of day
+      4. If you have color changing lightbulbs, what do you currently use to control them?
+          - No color changing lightbulbs.
+          4.  What features do you like of the current control system?
+              - N/A
+      5. What statistics, if any, do you want tracked with your lightbulb?
+          - Days used, colors used, rooms used
+      6. What options do you want visible upon viewing an individual lightbulb?
+          - Name, color, schedule, room
+      7. Is there any way you would like lightbulbs grouped?
+          - By schedule
+### Interview 3:
+      1. If you had a lightbulb app, which tracked color changing lightbulbs, what features would you want?
+      - Grouping together lightbulbs by room, turning multiple lights on and off, 
+      2. How often would you use the lightbulbs?
+         - Every day
+      4. If you have color changing lightbulbs, what do you currently use to control them?
+          - No color changing lightbulbs.
+          4.  What features do you like of the current control system?
+              - N/A
+      5. What statistics, if any, do you want tracked with your lightbulb?
+          - Hours left on lightbulb, time used, how often used, when used
+      6. What options do you want visible upon viewing an individual lightbulb?
+          - Name, color, room
+      7. Is there any way you would like lightbulbs grouped?
+          - By room, by color, by use amount
 ## Assumptions
 - The smart lightbulb will track its temperature
 - The smart lightbulb will keep track of its current color setting and have functionality for said color to be changed 
