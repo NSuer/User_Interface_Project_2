@@ -127,14 +127,23 @@ Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
 
 ### Sketching design alternatives to 3 design challenges (10-plus-10)
 ![Design Challenge 1](src/pictures/design-challenge-1.jpg)
+Header and navigation positioning.
+
 ![Design Challenge 2](src/pictures/design-challenge-2.jpg)
+Main body positioning. We think it would be best to have the controls and grid displayed at the same time for the user's convenience. 
+
 ![Design Challenge 3](src/pictures/design-challenge-3.jpg)
+Navigation and/or controls are toggleable to leave room for the main grid.
 
 ### Sketching the interface ("the vanilla sketch") 
 ![Main Sketch](src/pictures/main-sketch.jpg)
 
 ### Storyboard sketch
 ![Storyboard](src/pictures/storyboard.jpg)
+1. User reads the header to understand basic concept of the page.
+2. User will probably see the grid next.
+3. The user will probably be confused by the grid and will then read the controls, located in the box next to it.
+4. User can now interact with our device's simulation.
 
 ### Hybrid sketching to illustrate the integration of the interface on a real object
 - So we're designing a smart lightbulb, a user wants to control the lightbulb via an app.
