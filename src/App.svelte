@@ -35,7 +35,7 @@
 <body>
   <header>
     <div class="titleAndImg">
-      <h1 class="title" style="color: var(--yellow)" >The Smart Lightbulb</h1>
+      <h1 class="title">The Smart Lightbulb</h1>
       <img src="src/assets/powered-bulb.png"  width="105px" height="105px" alt=""> 
     </div>
     <!-- {#if titleHoverCheck}
@@ -50,10 +50,12 @@
       </div>
     {/if} -->
   </header>
-  <div class="spacer" style="bottom: 15px;"></div>
+  <div class="spacer" style="bottom: 50px;"></div>
   <main>
-    <div class="grid">
-      <FloorPlan />
+    <div style="position:relative; display:flex; flex-direction: column; width:45%;">
+      <div class="grid">
+        <FloorPlan />
+      </div>
     </div>
     <div class="information">
       <nav>
@@ -89,6 +91,7 @@
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
     background-color: rgb(255, 255, 255);
+    background-image: linear-gradient(to bottom right, white, rgb(255, 254, 181));
     left: 0;
     top: 0;
 
@@ -114,7 +117,7 @@
   
   .title {
     position: relative;
-    font-size: 3em;
+    font-size: 4em;
     padding: 0;
   }
 
@@ -124,8 +127,9 @@
     display: flex; 
     flex-direction: row; 
     justify-content: center;
+    align-items: center;
 
-    height:fit-content;
+    bottom: 20px;
   }
 
   ul {
@@ -141,15 +145,16 @@
     justify-content: center;
   }
 
-  li {
+  button {
     position: relative;
     padding: 5px 10px;
     border: 1px solid rgba(85, 85, 85, 0.25);
+    background-color: white;
     
     border-radius: 10px;
   }
 
-  li:hover {
+  button:hover {
     cursor: pointer;
     box-shadow: 0px 0.5px 0px 0.5px rgb(170, 170, 170);
   }
@@ -190,26 +195,34 @@
 
     width: 95%;
     height: 80%;
-    left: 2.5%;
+    left: 5%;
 
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 5%;
   }
 
   .grid {
     position: relative;
 
-    border: 1px solid black;
-    width: 50%;
+    width: 100%;
+    height: 85%;
+
+    border: 2px solid rgb(0, 0, 0, 0.6);
+    box-shadow: 5px 5px 5px rgb(54, 54, 54, 0.5);
   }
 
   .information {
     position: relative;
-    border: 2px solid rgb(102, 102, 102, 0.3);
+
+    border: 2px solid rgb(0, 0, 0, 0.6);
     border-radius: 20px;
 
-    width: 50%;
+    width: 45%;
+    height: 85%;
+
+    background-color: white;
+    box-shadow: 5px 5px 5px rgb(54, 54, 54, 0.5);
   }
   
   .navText {
