@@ -99,7 +99,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: brown;
+    background-color: white;
   }
 </style>
 
