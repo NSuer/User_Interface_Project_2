@@ -130,7 +130,7 @@ Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
 - But sice it needs to be physical and digitize something that is usually physical, it would be good to replace the light switches with our interface.
 - For our hybird sketch I will be integrating our smart lightbulb interface to replace a light switch.
 - This is my puppy Millie.
-![Hybrid Sketch](src/pictures/HybridSketch.png)
+![Hybrid Sketch](src/pictures/HybridSketch.jpg)
 
 ## User Feedback
 
