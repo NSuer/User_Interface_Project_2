@@ -126,13 +126,13 @@ Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
 ## Sketching 
 
 ### Sketching design alternatives to 3 design challenges (10-plus-10)
-![Design Challenge 1](src/pictures/design-challenge-1.jpg)
+![Design Challenge 1](src/pictures/design-challenge-1.jpg)<br />
 Header and navigation positioning.
 
-![Design Challenge 2](src/pictures/design-challenge-2.jpg)
+![Design Challenge 2](src/pictures/design-challenge-2.jpg)<br />
 Main body positioning. We think it would be best to have the controls and grid displayed at the same time for the user's convenience. 
 
-![Design Challenge 3](src/pictures/design-challenge-3.jpg)
+![Design Challenge 3](src/pictures/design-challenge-3.jpg)<br />
 Navigation and/or controls are toggleable to leave room for the main grid.
 
 ### Sketching the interface ("the vanilla sketch") 
