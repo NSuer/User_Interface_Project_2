@@ -106,6 +106,7 @@ Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
 - Name, color, room
 7. Is there any way you would like lightbulbs grouped?
 - By room, by color, by use amount
+
 ## Assumptions
 - The smart lightbulb will track its temperature
 - The smart lightbulb will keep track of its current color setting and have functionality for said color to be changed 
@@ -114,6 +115,11 @@ Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
 - The smart lightbulb will track its energy usage
 
 ## User Needs
+- User needs to be able to group lightbulbs based on schedules, rooms, and/or colors
+- User needs to be able to track several statistics for the lightbulb, including days used, time since installation, lifespan of the lightbulb, rooms used, colors used, how often used, and when used
+- User needs to be able to name lightbulbs and add descriptions or notes
+- User needs to be able to choose from a selection of colors 
+- User needs to be able to set themes
 
 ## Design Requirements
 
