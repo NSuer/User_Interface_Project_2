@@ -1,6 +1,6 @@
 <script>
-  const gridWidth = 30;  // In Columns
-  const gridHeight = 40; // In Rows
+  const gridWidth = 40;  // In Columns
+  const gridHeight = 30; // In Rows
 
   // Generate a basic floor plan with walls and doors
   const grid = Array.from({ length: gridHeight }, (_, rowIndex) => {
@@ -8,38 +8,39 @@
       // Define walls and doors
       if (
         // Doorway into apartment
-        (rowIndex === 0 && colIndex === 10 )
-
+        (rowIndex === Math.floor(gridHeight * 0.0) && colIndex === Math.floor(gridWidth * 0.33))
+        // Doorway into bedroom
+        || (rowIndex === Math.floor(gridHeight * 0.5) && colIndex === Math.floor(gridWidth * 0.33))
+        // Doorway into bathroom
+        || (rowIndex === Math.floor(gridHeight * 0.65) && colIndex === Math.floor(gridWidth * 0.23))
+        // Doorway into closet
+        || (rowIndex === Math.floor(gridHeight * 0.8) && colIndex === Math.floor(gridWidth * 0.33))
+        // Doorway into kitchen
+        || (rowIndex === Math.floor(gridHeight * 0.1) && colIndex === Math.floor(gridWidth * 0.23))
       ) {
         return 'door'; // Wall on edges
       } 
       // Define doors
-      else if ( rowIndex === 0 || rowIndex === gridHeight - 1 || colIndex === 0 || colIndex === gridWidth - 1
-      ) {
+      else if (rowIndex === 0 || rowIndex === gridHeight - 1 || colIndex === 0 || colIndex === gridWidth - 1) {
         return 'wall'; // Specific door positions
       } 
       // Define room areas
       else if (
         // Kitchen: Outline
-        (rowIndex === 0 && colIndex >= 0 && colIndex <= 20) || 
-        (rowIndex === 20 && colIndex >= 0 && colIndex <= 7) || 
-        (colIndex === 0 && rowIndex >= 1 && rowIndex <= 20) || 
-        (colIndex === 7 && rowIndex >= 1 && rowIndex <= 20) ||
+        (rowIndex === Math.floor(gridHeight * 0.0) && colIndex >= Math.floor(gridWidth * 0.0) && colIndex <= Math.floor(gridWidth * 0.67)) || 
+        (rowIndex === Math.floor(gridHeight * 0.5) && colIndex >= Math.floor(gridWidth * 0.0) && colIndex <= Math.floor(gridWidth * 0.23)) || 
+        (colIndex === Math.floor(gridWidth * 0.0) && rowIndex >= Math.floor(gridHeight * 0.03) && rowIndex <= Math.floor(gridHeight * 0.5)) || 
+        (colIndex === Math.floor(gridWidth * 0.23) && rowIndex >= Math.floor(gridHeight * 0.03) && rowIndex <= Math.floor(gridHeight * 0.5)) ||
         // Bedroom: Outline
-        (rowIndex === 20 && colIndex >= 13 && colIndex <= 30) || 
-        // (rowIndex === 40 && colIndex >= 13 && colIndex <= 30) || 
-        // (colIndex === 13 && rowIndex >= 20 && rowIndex <= 40) || 
-        // (colIndex === 30 && rowIndex >= 20 && rowIndex <= 40) ||
+        (rowIndex === Math.floor(gridHeight * 0.5) && colIndex >= Math.floor(gridWidth * 0.43) && colIndex <= Math.floor(gridWidth * 1.0)) || 
         // Bathroom: Outline
-        (rowIndex === 20 && colIndex >= 7 && colIndex <= 13) ||
-        (rowIndex === 33 && colIndex >= 7 && colIndex <= 13) ||
-        // (colIndex === 7 && rowIndex >= 20 && rowIndex <= 33) ||
-        (colIndex === 7 && rowIndex >= 20 && rowIndex <= 40) ||
+        (rowIndex === Math.floor(gridHeight * 0.5) && colIndex >= Math.floor(gridWidth * 0.23) && colIndex <= Math.floor(gridWidth * 0.43)) ||
+        (rowIndex === Math.floor(gridHeight * 0.8) && colIndex >= Math.floor(gridWidth * 0.23) && colIndex <= Math.floor(gridWidth * 0.43)) ||
+        (colIndex === Math.floor(gridWidth * 0.23) && rowIndex >= Math.floor(gridHeight * 0.5) && rowIndex <= Math.floor(gridHeight * 1.0)) ||
         // Closet: Outline
-        // (rowIndex === 33 && colIndex >= 13 && colIndex <= 33) ||
-        (rowIndex === 40 && colIndex >= 13 && colIndex <= 33) ||
-        (colIndex === 13 && rowIndex >= 33 && rowIndex <= 40) ||
-        (colIndex === 33 && rowIndex >= 33 && rowIndex <= 40) 
+        (rowIndex === Math.floor(gridHeight * 1.0) && colIndex >= Math.floor(gridWidth * 0.43) && colIndex <= Math.floor(gridWidth * 1.1)) ||
+        (colIndex === Math.floor(gridWidth * 0.43) && rowIndex >= Math.floor(gridHeight * 0.83) && rowIndex <= Math.floor(gridHeight * 1.0)) ||
+        (colIndex === Math.floor(gridWidth * 1.1) && rowIndex >= Math.floor(gridHeight * 0.83) && rowIndex <= Math.floor(gridHeight * 1.0))
       ) {
         return 'wall'; // Room areas
       }
