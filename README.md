@@ -126,7 +126,7 @@ Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
 ## Sketching 
 
 ### Sketching design alternatives to 3 design challenges (10-plus-10)
-![Design Challenge 1](src/pictures/design-challenge-1-new.jpg)
+![Design Challenge 1](src/pictures/design-challenge-1.jpg)
 ![Design Challenge 2](src/pictures/design-challenge-2.jpg)
 ![Design Challenge 3](src/pictures/design-challenge-3.jpg)
 
