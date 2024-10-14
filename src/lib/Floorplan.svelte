@@ -1,3 +1,10 @@
+<!-- Our three options:
+ fake voice commands 
+ adding and editing lights
+ Scenarios 
+ Day Play through -->
+
+
 <script>
   import { lights } from '../stores.js';
   const gridWidth = 40;  // In Columns
