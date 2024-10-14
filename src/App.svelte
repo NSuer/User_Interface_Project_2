@@ -1,4 +1,5 @@
 <script>
+  import FloorPlan from './lib/FloorPlan.svelte';
   let navValue = "Controls";
   let button1, button2, button3;
 
@@ -50,7 +51,7 @@
   <div class="spacer" style="bottom: 15px;"></div>
   <main>
     <div class="grid">
-
+      <FloorPlan />
     </div>
     <div class="information">
       <nav>
