@@ -106,6 +106,21 @@ Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
 - Name, color, room
 7. Is there any way you would like lightbulbs grouped?
 - By room, by color, by use amount
+### Interview 4:
+1. If you had a lightbulb app, which tracked color changing lightbulbs, what features would you want?
+- Grouping together lightbulbs by any means, lightbulbs with individual names, controlling groups, changing colors
+2. How often would you use the lightbulbs?
+- Only on special occasions, like a party
+3. If you have color changing lightbulbs, what do you currently use to control them?
+- No color changing lightbulbs.
+4.  What features do you like of the current control system?
+- N/A
+5. What statistics, if any, do you want tracked with your lightbulb?
+- User did not think of any
+6. What options do you want visible upon viewing an individual lightbulb?
+- Name, color, group
+7. Is there any way you would like lightbulbs grouped?
+- Not really
 
 ## Assumptions
 - The smart lightbulb will track its temperature
