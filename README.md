@@ -130,13 +130,22 @@ Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
 - The smart lightbulb will track its energy usage
 
 ## User Needs
-- User needs to be able to group lightbulbs based on schedules, rooms, and/or colors
+- User needs to be able to group lightbulbs based on schedules, rooms, colors, and more
+- User needs to be able to turn multiple lights on and off at once
 - User needs to be able to track several statistics for the lightbulb, including days used, time since installation, lifespan of the lightbulb, rooms used, colors used, how often used, and when used
 - User needs to be able to name lightbulbs and add descriptions or notes
 - User needs to be able to choose from a selection of colors 
-- User needs to be able to set themes
+- User needs to be able to set themes and schedules
+- User needs to be able to control lightbulbs by groups
 
 ## Design Requirements
+- Functionality for organizing lightbulbs within the interface based on a variety of properties, such as room, color, schedule, and more
+- Provide the ability to turn multiple lightbulbs on or off simultaneously 
+- Track statistics about each lightbulb, including days used, time since installation, colors used, and more
+- Make the name of each lightbulb customizable in the interface, and add a section for notes / descriptions as well 
+- Add customizable colors - could use a color wheel or allow the user to input color codes
+- Functionality for creating schedules and themes that can affect multiple lights at once 
+- Group lightbulbs by predefined criteria and make these groups controllable 
 
 ## Sketching 
 
