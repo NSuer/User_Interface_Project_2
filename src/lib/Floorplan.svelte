@@ -1,81 +1,112 @@
 <script>
-    export let lightState = { row: 0, col: 0, state: 'off', color: 'white', brightness: 0 };
-  
-    // Define the grid size
-    const rows = 5;
-    const cols = 5;
-    let grid = Array.from({ length: rows }, () => Array(cols).fill(null));
-  
-    function toggleWall(row, col) {
-      grid[row][col] = grid[row][col] === 'wall' ? null : 'wall';
-    }
-  
-    function toggleLight(row, col) {
-      // Remove the light if it's already placed here
-      if (lightState.row === row && lightState.col === col) {
-        lightState = { row: 0, col: 0, state: 'off', color: 'white', brightness: 0 };
-      } else {
-        lightState = { row, col, state: 'on', color: lightState.color, brightness: lightState.brightness };
+  const gridWidth = 30;  // In Columns
+  const gridHeight = 40; // In Rows
+
+  // Generate a basic floor plan with walls and doors
+  const grid = Array.from({ length: gridHeight }, (_, rowIndex) => {
+    return Array.from({ length: gridWidth }, (_, colIndex) => {
+      // Define walls and doors
+      if (
+        // Doorway into apartment
+        (rowIndex === 0 && colIndex === 10 )
+
+      ) {
+        return 'door'; // Wall on edges
+      } 
+      // Define doors
+      else if ( rowIndex === 0 || rowIndex === gridHeight - 1 || colIndex === 0 || colIndex === gridWidth - 1
+      ) {
+        return 'wall'; // Specific door positions
+      } 
+      // Define room areas
+      else if (
+        // Kitchen: Outline
+        (rowIndex === 0 && colIndex >= 0 && colIndex <= 20) || 
+        (rowIndex === 20 && colIndex >= 0 && colIndex <= 7) || 
+        (colIndex === 0 && rowIndex >= 1 && rowIndex <= 20) || 
+        (colIndex === 7 && rowIndex >= 1 && rowIndex <= 20) ||
+        // Bedroom: Outline
+        (rowIndex === 20 && colIndex >= 13 && colIndex <= 30) || 
+        // (rowIndex === 40 && colIndex >= 13 && colIndex <= 30) || 
+        // (colIndex === 13 && rowIndex >= 20 && rowIndex <= 40) || 
+        // (colIndex === 30 && rowIndex >= 20 && rowIndex <= 40) ||
+        // Bathroom: Outline
+        (rowIndex === 20 && colIndex >= 7 && colIndex <= 13) ||
+        (rowIndex === 33 && colIndex >= 7 && colIndex <= 13) ||
+        // (colIndex === 7 && rowIndex >= 20 && rowIndex <= 33) ||
+        (colIndex === 7 && rowIndex >= 20 && rowIndex <= 40) ||
+        // Closet: Outline
+        // (rowIndex === 33 && colIndex >= 13 && colIndex <= 33) ||
+        (rowIndex === 40 && colIndex >= 13 && colIndex <= 33) ||
+        (colIndex === 13 && rowIndex >= 33 && rowIndex <= 40) ||
+        (colIndex === 33 && rowIndex >= 33 && rowIndex <= 40) 
+      ) {
+        return 'wall'; // Room areas
       }
+      return null; // Empty space
+    });
+  });
+
+  let lights = new Set();
+
+  function toggleLight(x, y) {
+    const position = `${x},${y}`;
+    if (lights.has(position)) {
+      lights.delete(position);
+    } else {
+      lights.add(position);
     }
-  </script>
-  
-  <style>
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(5, 60px);
-      gap: 5px;
-    }
-    .cell {
-      width: 60px;
-      height: 60px;
-      border: 1px solid #ccc;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      background-color: #f9f9f9;
-    }
-    .wall {
-      background-color: gray;
-    }
-    .lightbulb {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    }
-  </style>
-  
-  <div class="grid">
-    {#each Array(rows) as _, rowIndex}
-      {#each Array(cols) as _, colIndex}
-        <button
-          class="cell {grid[rowIndex][colIndex]}"
-          on:click={() => toggleLight(rowIndex, colIndex)}
-          on:contextmenu|preventDefault={() => toggleWall(rowIndex, colIndex)} 
-          on:keydown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleLight(rowIndex, colIndex); }}
-          aria-label="Toggle light or wall"
-          style="cursor: {grid[rowIndex][colIndex] ? 'not-allowed' : 'pointer'}"
-        >
-          {#if grid[rowIndex][colIndex] === 'wall'}
-            <div class="wall"></div>
-          {/if}
-          {#if lightState.row === rowIndex && lightState.col === colIndex}
-            <div
-              class="lightbulb"
-              style="background-color: {lightState.state === 'on' ? lightState.color : 'transparent'}; opacity: {lightState.state === 'on' ? lightState.brightness / 100 : 0};"
-            ></div>
-          {/if}
-        </button>
-      {/each}
+  }
+</script>
+
+<div class="grid" style="grid-template-columns: repeat({gridWidth}, 1fr); grid-template-rows: repeat({gridHeight}, 1fr);">
+  {#each grid as row, rowIndex}
+    {#each row as cell, colIndex}
+      <div class="cell {cell}" >
+        {#if cell === 'door'}
+          <div class="door-icon"></div>
+        {/if}
+        {#if lights.has(`${colIndex},${rowIndex}`)}
+          <div class="light"></div>
+        {/if}
+      </div>
     {/each}
-  </div>
-  
-  <p>Right-click to toggle walls.</p>
-  
-  
+  {/each}
+</div>
+
+<style>
+  .grid {
+    height: 100%; /* Full viewport height */
+    width: 100%; /* Full viewport width */
+    display: grid;
+    gap: 1px;
+    background-color: lightgrey;
+  }
+
+  .cell {
+    position: relative;
+    background-color: white;
+  }
+
+  .wall {
+    background-color: black;
+  }
+
+  .light {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: yellow;
+    border-radius: 50%;
+  }
+
+  .door-icon {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: brown;
+  }
+</style>
+
+
+
