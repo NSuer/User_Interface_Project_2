@@ -1,5 +1,7 @@
 <script>
   import FloorPlan from './lib/FloorPlan.svelte';
+  import { DiscoTime } from './stores.js';
+  import { lights } from './stores.js';
   let navValue = "Controls";
   let button1, button2, button3;
 
@@ -57,9 +59,9 @@
       <nav>
         <h2 style="position:relative; left: 2.5%;">Controls</h2>
         <ul>
-          <li bind:this={button1} on:click={() => animate(1)}>Controls</li>
-          <li bind:this={button2} on:click={() => animate(2)}>Indicators</li>
-          <li bind:this={button3} on:click={() => animate(3)}>Settings</li>
+          <li><button type="button" bind:this={button1} on:click={() => DiscoTime()}>Controls</button></li>
+          <li><button type="button" bind:this={button2} on:click={() => animate(2)}>Indicators</button></li>
+          <li><button type="button" bind:this={button3} on:click={() => animate(3)}>Settings</button></li>
         </ul>
       </nav>
       <div class="spacer"></div>

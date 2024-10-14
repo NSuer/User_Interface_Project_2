@@ -1,4 +1,5 @@
 <script>
+  import { lights } from '../stores.js';
   const gridWidth = 40;  // In Columns
   const gridHeight = 30; // In Rows
 
@@ -19,13 +20,10 @@
         || (rowIndex === Math.floor(gridHeight * 0.1) && colIndex === Math.floor(gridWidth * 0.23))
       ) {
         return 'door'; // Wall on edges
-      } 
-      // Define doors
-      else if (rowIndex === 0 || rowIndex === gridHeight - 1 || colIndex === 0 || colIndex === gridWidth - 1) {
+      } else if ( // Define doors
+        rowIndex === 0 || rowIndex === gridHeight - 1 || colIndex === 0 || colIndex === gridWidth - 1) {
         return 'wall'; // Specific door positions
-      } 
-      // Define room areas
-      else if (
+      } else if ( // Define room areas
         // Kitchen: Outline
         (rowIndex === Math.floor(gridHeight * 0.0) && colIndex >= Math.floor(gridWidth * 0.0) && colIndex <= Math.floor(gridWidth * 0.67)) || 
         (rowIndex === Math.floor(gridHeight * 0.5) && colIndex >= Math.floor(gridWidth * 0.0) && colIndex <= Math.floor(gridWidth * 0.23)) || 
@@ -43,21 +41,12 @@
         (colIndex === Math.floor(gridWidth * 1.1) && rowIndex >= Math.floor(gridHeight * 0.83) && rowIndex <= Math.floor(gridHeight * 1.0))
       ) {
         return 'wall'; // Room areas
-      }
+      } 
       return null; // Empty space
     });
   });
 
-  let lights = new Set();
 
-  function toggleLight(x, y) {
-    const position = `${x},${y}`;
-    if (lights.has(position)) {
-      lights.delete(position);
-    } else {
-      lights.add(position);
-    }
-  }
 </script>
 
 <div class="grid" style="grid-template-columns: repeat({gridWidth}, 1fr); grid-template-rows: repeat({gridHeight}, 1fr);">
@@ -67,8 +56,14 @@
         {#if cell === 'door'}
           <div class="door-icon"></div>
         {/if}
-        {#if lights.has(`${colIndex},${rowIndex}`)}
-          <div class="light"></div>
+        {#if $lights.find(light => light.location_x === rowIndex && light.location_y === colIndex)}
+          {#each $lights as light}
+            {#if light.location_x === rowIndex && light.location_y === colIndex}
+              <div class="light" style=
+              'background-color: {light.color};
+              opacity: {light.opacity}'></div>
+            {/if}
+          {/each}
         {/if}
       </div>
     {/each}
@@ -94,10 +89,9 @@
   }
 
   .light {
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100%;
-    background-color: yellow;
     border-radius: 50%;
   }
 
