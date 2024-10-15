@@ -2,8 +2,18 @@ import { writable } from "svelte/store";
 import { readable } from 'svelte/store';
 import { get } from 'svelte/store';
 
+
+
+// Light stuff -------------------------------------------------------------------------------------
+
+// Options for properties in the Light class
+export let colorOptions = writable(["red", "blue", "green", "yellow", "purple", "orange", "pink"]);
+export let modeOptions = writable(["solid", "blink", "fade"]);
+export let roomOptions = writable(["unassigned", "living room", "kitchen", "bedroom", "bathroom", "hallway"]); 
+
 class Light {
-    constructor(name, location_x, location_y, room, on, opacity, color, mode) {
+    constructor(id, name, location_x, location_y, room, on, opacity, color, mode) {
+        this.id = id
         this.name = name;
         this.location_x = location_x;
         this.location_y = location_y;
@@ -25,8 +35,32 @@ Light.defaults = {
     mode: "solid"
 };
 
+export function updateLight(lightIndex, lightData = {}) {
+    console.log("Updating light with index: " + lightIndex);
+    console.log("Light data:" + JSON.stringify(lightData));
+    lights.update(currentLights => {
+        return currentLights.map((light, index) => {
+            if (index === lightIndex) {
+                return new Light(
+                    light.id,
+                    lightData.name || light.name,
+                    lightData.location_x || light.location_x,
+                    lightData.location_y || light.location_y,
+                    lightData.room || light.room,
+                    lightData.on !== undefined ? lightData.on : light.on,
+                    lightData.opacity !== undefined ? lightData.opacity : light.opacity,
+                    lightData.color || light.color,
+                    lightData.mode || light.mode
+                );
+            }
+            return light;
+        });
+    });
+}
+
 export function addLight(lightData = {}) {
     const newLight = new Light(
+        get(lights).length + 1,
         lightData.name || Light.defaults.name,
         lightData.location_x || Light.defaults.location_x,
         lightData.location_y || Light.defaults.location_y,
@@ -39,9 +73,9 @@ export function addLight(lightData = {}) {
     lights.update(currentLights => [...currentLights, newLight]);
 }
 export let lights = writable([
-    new Light("Light 1", 20, 20, "unasigned", false, 0.5, "yellow", "solid"),
-    new Light("Light 2", 21, 21, "unasigned", false, 0.5, "blue", "solid"),
-    new Light("Light 3", 22, 22, "unasigned", false, 1, "blue", "solid")
+    new Light(0, "Light 1", 20, 20, "unassigned", false, 0.5, "yellow", "solid"),
+    new Light(1, "Light 2", 21, 21, "unassigned", false, 0.5, "blue", "solid"),
+    new Light(2, "Light 3", 22, 22, "unassigned", false, 1, "blue", "solid")
 ]);
 
 export function DiscoTime() {
