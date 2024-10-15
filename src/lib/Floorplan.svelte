@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { lights, updateLight, colorOptions, modeOptions, roomOptions } from '../stores.js';
+  import { lights, updateLight, addLight, removeLight, colorOptions, modeOptions, roomOptions } from '../stores.js';
   const gridWidth = 40;  // In Columns
   const gridHeight = 30; // In Rows
 
@@ -50,7 +50,7 @@
       ) {
         return 'wall'; // Room areas
       } 
-      return null; // Empty space
+      return 'empty'; // Empty space
     });
   });
 
@@ -89,7 +89,6 @@
     const row = parseInt(event.target.dataset.row, 10);
     const col = parseInt(event.target.dataset.col, 10);
     const light = $lights.find(light => light.location_x === row && light.location_y === col);
-    console.log(light);
 
     tempName = light.name;
     tempRoom = light.room;
@@ -101,19 +100,46 @@
       openEditModal(light);
     }
   }
+  
+  function addNewLight(event) {
+    const row = parseInt(event.target.dataset.row, 10);
+    const col = parseInt(event.target.dataset.col, 10);
+    const lightData = {
+      name: 'New Light',
+      room: 'unassigned',
+      on: false,
+      color: 'yellow',
+      mode: 'solid',
+      opacity: 1,
+      location_x: row,
+      location_y: col
+    };
+    addLight(lightData)
+  }
 
+  function deleteLight() {
+    console.log(selectedLight);
+    removeLight(selectedLight.id);
+    closeModal();
+  }
 
 </script>
 
 <div class="grid" style="grid-template-columns: repeat({gridWidth}, 1fr); grid-template-rows: repeat({gridHeight}, 1fr);">
   {#each grid as row, rowIndex}
     {#each row as cell, colIndex}
-      <div class="cell {cell}" >
+      <div class="cell {cell}">
+        {#if cell === 'empty'}
+          <button class="emptyCell" on:click={event => addNewLight(event)} data-row={rowIndex} data-col={colIndex}></button>
+        {/if}
+        {#if cell === 'wall'}
+          <div class="wall"></div>
+        {/if}
         {#if cell === 'door'}
           <div class="door-icon"></div>
         {/if}
         {#if $lights.find(light => light.location_x === rowIndex && light.location_y === colIndex)}
-          {#each $lights as light}
+          {#each $lights as light (light.id)}
             {#if light.location_x === rowIndex && light.location_y === colIndex}
               <button class="light" style=
               'background-color: {light.color};
@@ -166,6 +192,7 @@
         </label>
         <button on:click={saveLight}>Save</button>
         <button on:click={closeModal}>Cancel</button>
+        <button on:click={deleteLight}>Delete</button>
       </div>
     </div>
   {/if}
@@ -216,6 +243,18 @@
   .cell {
     position: relative;
     background-color: white;
+  }
+
+  .emptyCell {
+    background-color: transparent;
+    border: none;
+    border: black 0.25px solid;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
   }
 
   .wall {

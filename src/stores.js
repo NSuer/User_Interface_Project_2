@@ -35,6 +35,12 @@ Light.defaults = {
     mode: "solid"
 };
 
+export let lights = writable([
+    new Light(0, "Light 1", 20, 20, "unassigned", false, 0.5, "yellow", "solid"),
+    new Light(1, "Light 2", 21, 21, "unassigned", false, 0.5, "blue", "solid"),
+    new Light(2, "Light 3", 22, 22, "unassigned", false, 1, "blue", "solid")
+]);
+
 export function updateLight(lightIndex, lightData = {}) {
     console.log("Updating light with index: " + lightIndex);
     console.log("Light data:" + JSON.stringify(lightData));
@@ -71,12 +77,21 @@ export function addLight(lightData = {}) {
         lightData.mode || Light.defaults.mode
     );
     lights.update(currentLights => [...currentLights, newLight]);
+    console.log("Added light: " + JSON.stringify(newLight));
 }
-export let lights = writable([
-    new Light(0, "Light 1", 20, 20, "unassigned", false, 0.5, "yellow", "solid"),
-    new Light(1, "Light 2", 21, 21, "unassigned", false, 0.5, "blue", "solid"),
-    new Light(2, "Light 3", 22, 22, "unassigned", false, 1, "blue", "solid")
-]);
+
+export function removeLight(lightIndex) {
+    lights.update(currentLights => {
+        const updatedLights = currentLights.filter((light, index) => index !== lightIndex);
+        return updatedLights.map((light, index) => {
+            light.id = index; // Reassign IDs to maintain sequence
+            return light;
+        });
+    });
+    console.log("Removed light with index: " + lightIndex);
+    console.log("Current lights: " + JSON.stringify(get(lights)));
+}
+
 
 export function DiscoTime() {
     let DiscoColors = ["red", "blue", "green", "yellow", "purple", "orange", "pink"];
