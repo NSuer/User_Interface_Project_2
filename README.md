@@ -177,7 +177,7 @@ Navigation and/or controls are toggleable to leave room for the main grid.
 ![Hybrid Sketch](src/pictures/HybridSketch.jpg)
 
 ## User Feedback
-
+- The user feedback we primarily received was that our choice of displaying the grid and controls at the same time was a good idea, as the grid was confusing at first. There was also a 2-1 split between whether or not the grid should be interacted with to turn lights on and off, instead of just displaying the current house's condition. Finally, they all agreed with only needing "Controls" and "Description" menus on the right.
 
 # AI Use
 - I used the following prompt "Using svelte and js, make me a component that will allow me to design floorplans for houses. All floorplans are one floor. Have options for doors, lights, and walls" to get the basic room maker. It was functional. This was useful but only will be used as a basis for future work. Here is an image of what was made
