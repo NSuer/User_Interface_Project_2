@@ -11,13 +11,14 @@ export let colorOptions = writable(["red", "blue", "green", "yellow", "purple", 
 export let modeOptions = writable(["solid", "blink", "fade"]);
 export let roomOptions = writable(["unassigned", "living room", "kitchen", "bedroom", "bathroom", "hallway"]); 
 
-const colorMap = {"red" : "FF0000", 
+export const colorMap = {"red" : "FF0000", 
                 "blue" : "0000FF",
                 "green" : "00FF00",
                 "yellow" : "FFFF00",
                 "purple" : "FF00FF",
                 "orange" : "FFA500",
-                "pink" : "FFC0CB"
+                "pink" : "FFC0CB",
+                "grey" : "808080"
             }
 
 class Light {
@@ -74,15 +75,17 @@ Light.defaults = {
     room: "unassigned",
     on: false,
     opacity: 1,
-    color: "white",
+    color: "yellow",
     mode: "solid"
 };
 
 export let lights = writable([
-    new Light(0, "Light 1", 20, 20, "unassigned", false, 0.5, "yellow", "solid"),
+    new Light(0, "Light 1", 20, 20, "unassigned", true, 0.5, "yellow", "solid"),
     new Light(1, "Light 2", 21, 21, "unassigned", false, 0.5, "blue", "solid"),
-    new Light(2, "Light 3", 22, 22, "unassigned", false, 1, "blue", "solid")
+    new Light(2, "Light 3", 22, 22, "unassigned", true, 1, "blue", "solid")
 ]);
+
+
 
 export function updateLight(lightIndex, lightData = {}) {
     console.log("Updating light with index: " + lightIndex);
