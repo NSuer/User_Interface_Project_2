@@ -135,7 +135,7 @@ export function removeLight(lightIndex) {
     console.log("Current lights: " + JSON.stringify(get(lights)));
 }
 
-export function run_command(command, group) {
+export function run_command(command, group, extra) {
     // Find all lights in the group(room) and run the command on them
     // If group is "all" then run the command on all lights
     
@@ -150,7 +150,19 @@ export function run_command(command, group) {
         groupLights.forEach(light => light.on = false);
     } else if (command === "disco") {
         DiscoTime(lightsArray);
-    } 
+    } else if (command === "blink") {
+        BlinkTime(lightsArray);
+    } else if (command === "fade") {
+        FadeTime(lightsArray);
+    } else if (command === "rainbow") {
+        RainbowTime(lightsArray);
+    } else if (command === "shift") {
+        let color = extra;
+        groupLights.forEach(light => light.shift(color, 5));
+    } else if (command === "changeColor") {
+        let color = extra;
+        groupLights.forEach(light => light.color = color);
+    }
 }
 
 
@@ -175,4 +187,52 @@ export function DiscoTime(lightsArray) {
 
     // Stop the disco after 30 seconds
     setTimeout(() => clearInterval(interval1), 30000);
+}
+
+function BlinkTime(lightsArray) {
+    let interval = setInterval(() => {
+        lightsArray = lightsArray.map(element => {
+            element.on = !element.on;
+            return element;
+        });
+        lights.set(lightsArray);
+    }, 500); // Small interval between each iteration
+
+    // Stop the disco after 30 seconds
+    setTimeout(() => clearInterval(interval), 30000);
+}
+
+function FadeTime(lightsArray) {
+    let interval = setInterval(() => {
+        for (let opacity = 0; opacity <= 1; opacity += 0.1) {
+            lightsArray = lightsArray.map(element => {
+                element.opacity = opacity;
+                return element;
+            });
+            lights.set(lightsArray);
+        }
+    }, 500); // Small interval between each iteration
+
+    // Stop the disco after 30 seconds
+    setTimeout(() => clearInterval(interval), 30000);
+}
+
+function RainbowTime(lightsArray) {
+    let RainbowColors = ["red", "orange", "yellow", "green", "blue", "purple"];
+    let lightIndex = 0;
+    let colorIndex = 0;
+
+    let interval = setInterval(() => {
+        if (lightIndex < lightsArray.length) {
+            lightsArray[lightIndex].color = RainbowColors[colorIndex];
+            lights.set(lightsArray);
+            lightIndex++;
+        } else {
+            lightIndex = 0;
+            colorIndex = (colorIndex + 1) % RainbowColors.length;
+        }
+    }, 1000); // 1 second interval between each light change
+
+    // Stop the rainbow effect after 30 seconds
+    setTimeout(() => clearInterval(interval), 30000);
 }
