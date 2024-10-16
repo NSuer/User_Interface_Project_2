@@ -11,9 +11,18 @@ export let colorOptions = writable(["red", "blue", "green", "yellow", "purple", 
 export let modeOptions = writable(["solid", "blink", "fade"]);
 export let roomOptions = writable(["unassigned", "living room", "kitchen", "bedroom", "bathroom", "hallway"]); 
 
+const colorMap = {"red" : "FF0000", 
+                "blue" : "0000FF",
+                "green" : "00FF00",
+                "yellow" : "FFFF00",
+                "purple" : "FF00FF",
+                "orange" : "FFA500",
+                "pink" : "FFC0CB"
+            }
+
 class Light {
     constructor(id, name, location_x, location_y, room, on, opacity, color, mode) {
-        this.id = id
+        this.id = id;
         this.name = name;
         this.location_x = location_x;
         this.location_y = location_y;
@@ -21,8 +30,42 @@ class Light {
         this.on = on;
         this.opacity = opacity;
         this.color = color;
+        this.hex_color = colorMap[color];
         this.mode = mode;
     }
+
+    shift(a_color, seconds) {
+        const milliseconds = seconds * 1000;
+        // We extract the color and only the color, this is to avoid things such as #FF00FF instead of FF00FF
+        // https://stackoverflow.com/questions/1636350/how-to-identify-a-given-string-is-hex-color-format
+        // https://stackoverflow.com/questions/48343478/what-does-mapnumber-do-here
+        const startColor = this.color.match(/\d+/g).map(Number);
+        const endColor = a_color.match(/\d+/g).map(Number);
+        const steps = milliseconds / 16; // Approx 60 FPS
+
+        let step = 0;
+        const stepChange = [ 
+            (endColor[0] - startColor[0]) / steps, 
+            (endColor[1] - startColor[1]) / steps, 
+            (endColor[2] - startColor[2]) / steps 
+        ];
+
+        const interval = setInterval(() => {
+            if (step < steps) {
+                this.color = `rgb(${Math.round(startColor[0] + stepChange[0] * step)}, 
+                                 ${Math.round(startColor[1] + stepChange[1] * step)}, 
+                                 ${Math.round(startColor[2] + stepChange[2] * step)})`;
+                step++;
+            } else {
+                this.color = `rgb(${endColor[0]}, ${endColor[1]}, ${endColor[2]})`;
+                clearInterval(interval);
+            }
+            // We use 16 here to aproximate to 60fps
+        }, 16);
+        //
+
+    }
+
 }
 Light.defaults = {
     name: "Unnamed Light",
@@ -66,7 +109,7 @@ export function updateLight(lightIndex, lightData = {}) {
 
 export function addLight(lightData = {}) {
     const newLight = new Light(
-        get(lights).length + 1,
+        get(lights).length,
         lightData.name || Light.defaults.name,
         lightData.location_x || Light.defaults.location_x,
         lightData.location_y || Light.defaults.location_y,
@@ -91,7 +134,6 @@ export function removeLight(lightIndex) {
     console.log("Removed light with index: " + lightIndex);
     console.log("Current lights: " + JSON.stringify(get(lights)));
 }
-
 
 export function DiscoTime() {
     let DiscoColors = ["red", "blue", "green", "yellow", "purple", "orange", "pink"];

@@ -1,5 +1,5 @@
 <script>
-  import FloorPlan from './lib/FloorPlan.svelte';
+  import FloorPlan from './lib/Floorplan.svelte';
   import { DiscoTime } from './stores.js';
   import { lights } from './stores.js';
   let navValue = "Controls";
