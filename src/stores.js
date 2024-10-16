@@ -39,7 +39,7 @@ class Light {
         // We extract the color and only the color, this is to avoid things such as #FF00FF instead of FF00FF
         // https://stackoverflow.com/questions/1636350/how-to-identify-a-given-string-is-hex-color-format
         // https://stackoverflow.com/questions/48343478/what-does-mapnumber-do-here
-        const startColor = this.color.match(/\d+/g).map(Number);
+        const startColor = this.hex_color.match(/\d+/g).map(Number);
         const endColor = a_color.match(/\d+/g).map(Number);
         const steps = milliseconds / 16; // Approx 60 FPS
 
@@ -57,7 +57,7 @@ class Light {
                                  ${Math.round(startColor[2] + stepChange[2] * step)})`;
                 step++;
             } else {
-                this.color = `rgb(${endColor[0]}, ${endColor[1]}, ${endColor[2]})`;
+                this.hex_color = `rgb(${endColor[0]}, ${endColor[1]}, ${endColor[2]})`;
                 clearInterval(interval);
             }
             // We use 16 here to aproximate to 60fps
