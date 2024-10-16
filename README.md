@@ -12,7 +12,9 @@
   - adding and editing lights - Nate
   - Scenarios 
   - Day Play through
-
+## Sam is working on (in order):
+- adding lightbulb icon
+- light fading and ray tracing for displaying light effects on the grid
 
 # Helpful Commands
 - npm run deploy - This will build and deploy the github page public website
