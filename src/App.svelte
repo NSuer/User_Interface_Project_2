@@ -92,8 +92,8 @@
     position: absolute;
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
-    background-color: rgb(255, 255, 255);
     background-image: linear-gradient(to bottom right, white, rgb(255, 254, 181));
+    background-repeat: repeat;
     left: 0;
     top: 0;
 
@@ -104,6 +104,8 @@
 
     padding: 0;
     margin: 0;
+
+    overflow: auto;
   }
 
   nav {
@@ -237,11 +239,10 @@
   }
 
   footer {
-    position: absolute;
+    position: relative;
 
     width: 95%;
     left: 2.5%;
-    top: 97.5%;
 
     text-align: center;
     color: rgb(102, 102, 102);

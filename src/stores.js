@@ -189,7 +189,7 @@ function updateLightsArray(updatedLights) {
 }
 
 
-function DiscoTime(lightsArray) {
+export function DiscoTime(lightsArray) {
     let DiscoColors = ["red", "blue", "green", "yellow", "purple", "orange", "pink"];
 
     let interval1 = setInterval(() => {
