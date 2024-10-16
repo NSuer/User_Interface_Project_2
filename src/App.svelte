@@ -171,27 +171,6 @@
     background-color: rgba(19, 19, 19, 0.3);
   }
 
-  .img-descrip {
-    position: relative;
-    top: 0;
-    color: white;
-
-    width: 95%;
-    left: 2.5%;
-    border-radius: 20px;
-    
-    height: 20%;
-    
-    background-image: url('/src/assets/header-img-background.jpg');
-    background-color: var(--yellow);
-    background-position: 120% 55%;
-    background-repeat: no-repeat;
-    border: rgba(216, 216, 216, 0.6) 2px solid;
-
-    display: flex;
-    align-items: center;
-  }
-
   main {
     position: relative;
 
