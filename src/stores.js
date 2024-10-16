@@ -135,9 +135,27 @@ export function removeLight(lightIndex) {
     console.log("Current lights: " + JSON.stringify(get(lights)));
 }
 
-export function DiscoTime() {
-    let DiscoColors = ["red", "blue", "green", "yellow", "purple", "orange", "pink"];
+export function run_command(command, group) {
+    // Find all lights in the group(room) and run the command on them
+    // If group is "all" then run the command on all lights
+    
+    // Make an array of all the lights in the group
     let lightsArray = get(lights);
+    let groupLights = lightsArray.filter(light => light.room === group || group === "all");
+
+    // Run the command on all the lights in the group
+    if (command === "on") {
+        groupLights.forEach(light => light.on = true);
+    } else if (command === "off") {
+        groupLights.forEach(light => light.on = false);
+    } else if (command === "disco") {
+        DiscoTime(lightsArray);
+    } 
+}
+
+
+export function DiscoTime(lightsArray) {
+    let DiscoColors = ["red", "blue", "green", "yellow", "purple", "orange", "pink"];
 
     let interval1 = setInterval(() => {
         for (let colorIndex = 0; colorIndex < DiscoColors.length; colorIndex++) {
