@@ -166,7 +166,7 @@ export function run_command(command, group, extra) {
 }
 
 
-export function DiscoTime(lightsArray) {
+function DiscoTime(lightsArray) {
     let DiscoColors = ["red", "blue", "green", "yellow", "purple", "orange", "pink"];
 
     let interval1 = setInterval(() => {
