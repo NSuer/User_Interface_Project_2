@@ -7,17 +7,20 @@ import { get } from 'svelte/store';
 // Light stuff -------------------------------------------------------------------------------------
 
 // Options for properties in the Light class
-export let colorOptions = writable(["red", "blue", "green", "yellow", "purple", "orange", "pink"]);
+export let colorOptions = writable(["red", "blue", "green", "yellow", "purple", "orange", "pink", "grey"]);
 export let modeOptions = writable(["solid", "blink", "fade"]);
 export let roomOptions = writable(["unassigned", "living room", "kitchen", "bedroom", "bathroom", "hallway"]); 
 
-const colorMap = {"red" : "FF0000", 
+export let groupOptions = writable(["all", "living room", "kitchen", "bedroom", "bathroom", "hallway"]);
+
+export const colorMap = {"red" : "FF0000", 
                 "blue" : "0000FF",
                 "green" : "00FF00",
                 "yellow" : "FFFF00",
                 "purple" : "FF00FF",
                 "orange" : "FFA500",
-                "pink" : "FFC0CB"
+                "pink" : "FFC0CB",
+                "grey" : "808080"
             }
 
 class Light {
@@ -72,16 +75,16 @@ Light.defaults = {
     location_x: 0,
     location_y: 0,
     room: "unassigned",
-    on: false,
+    on: true,
     opacity: 1,
-    color: "white",
+    color: "yellow",
     mode: "solid"
 };
 
 export let lights = writable([
-    new Light(0, "Light 1", 20, 20, "unassigned", false, 0.5, "yellow", "solid"),
+    new Light(0, "Light 1", 20, 20, "unassigned", true, 0.5, "yellow", "solid"),
     new Light(1, "Light 2", 21, 21, "unassigned", false, 0.5, "blue", "solid"),
-    new Light(2, "Light 3", 22, 22, "unassigned", false, 1, "blue", "solid")
+    new Light(2, "Light 3", 22, 22, "unassigned", true, 1, "blue", "solid")
 ]);
 
 export function updateLight(lightIndex, lightData = {}) {
@@ -146,8 +149,12 @@ export function run_command(command, group, extra) {
     // Run the command on all the lights in the group
     if (command === "on") {
         groupLights.forEach(light => light.on = true);
+        // turn all colors to yellow
+        groupLights.forEach(light => light.color = "yellow");
+        updateLightsArray(groupLights)
     } else if (command === "off") {
         groupLights.forEach(light => light.on = false);
+        updateLightsArray(groupLights)
     } else if (command === "disco") {
         DiscoTime(lightsArray);
     } else if (command === "blink") {
@@ -159,10 +166,26 @@ export function run_command(command, group, extra) {
     } else if (command === "shift") {
         let color = extra;
         groupLights.forEach(light => light.shift(color, 5));
+        updateLightsArray(groupLights)
     } else if (command === "changeColor") {
         let color = extra;
         groupLights.forEach(light => light.color = color);
+        updateLightsArray(groupLights)
     }
+}
+
+function updateLightsArray(updatedLights) {
+    // Go througb the array of updated lights, and update the lights with the same id in the lights array
+    let updatedLightsArray;
+    updatedLights.forEach(updatedLight => {
+        updatedLightsArray = get(lights).map(light => {
+            if (light.id === updatedLight.id) {
+                return updatedLight;
+            }
+            return light;
+        });
+    });
+    lights.set(updatedLightsArray);
 }
 
 
@@ -178,7 +201,7 @@ function DiscoTime(lightsArray) {
                         element.opacity = opacity;
                         return element;
                     });
-                    lights.set(lightsArray);
+                    updateLightsArray(lightsArray);
                 }
             }, 10); // Small interval between each iteration
             setTimeout(() => clearInterval(interval2), 30000);
@@ -192,10 +215,15 @@ function DiscoTime(lightsArray) {
 function BlinkTime(lightsArray) {
     let interval = setInterval(() => {
         lightsArray = lightsArray.map(element => {
-            element.on = !element.on;
+            if (element.on) {
+                element.on = false;
+            } else {
+                element.on = true;
+                lightsArray.forEach(light => light.color = "yellow");
+            }
             return element;
         });
-        lights.set(lightsArray);
+        updateLightsArray(lightsArray);
     }, 500); // Small interval between each iteration
 
     // Stop the disco after 30 seconds
@@ -209,7 +237,7 @@ function FadeTime(lightsArray) {
                 element.opacity = opacity;
                 return element;
             });
-            lights.set(lightsArray);
+            updateLightsArray(lightsArray);
         }
     }, 500); // Small interval between each iteration
 
@@ -225,7 +253,7 @@ function RainbowTime(lightsArray) {
     let interval = setInterval(() => {
         if (lightIndex < lightsArray.length) {
             lightsArray[lightIndex].color = RainbowColors[colorIndex];
-            lights.set(lightsArray);
+            updateLightsArray(lightsArray);
             lightIndex++;
         } else {
             lightIndex = 0;

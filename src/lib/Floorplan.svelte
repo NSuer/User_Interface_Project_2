@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { lights, updateLight, addLight, removeLight, colorOptions, modeOptions, roomOptions } from '../stores.js';
+  import { lights, updateLight, addLight, removeLight, colorOptions, modeOptions, roomOptions, colorMap } from '../stores.js';
   const gridWidth = 40;  // In Columns
   const gridHeight = 30; // In Rows
 
@@ -121,6 +121,15 @@
     console.log(selectedLight);
     removeLight(selectedLight.id);
     closeModal();
+  }
+
+  $: {
+    $lights.forEach(light => {
+      if (!light.on) {
+        light.color = "grey";
+        light.hex_color = colorMap["grey"];
+      }
+    });
   }
 
 </script>
