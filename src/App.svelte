@@ -1,6 +1,5 @@
 <script>
   import FloorPlan from './lib/Floorplan.svelte';
-  import Info from './lib/Info.svelte';
   import { DiscoTime } from './stores.js';
   import { lights } from './stores.js';
   let navValue = "Controls";
@@ -56,7 +55,6 @@
     <div style="position:relative; display:flex; flex-direction: column; width:45%;">
       <div class="grid">
         <FloorPlan />
-        <Info />
       </div>
     </div>
     <div class="information">
