@@ -6,22 +6,28 @@
    }
  </script>
  
- <button class="info-button" on:click={toggleInfo}>
-   {showInfo ? 'Hide Info' : 'Show Info'}
- </button>
- 
- {#if showInfo}
-   <div class="info-box">
-     <p>This floor plan allows you to add, edit, or remove lights. Click on an empty space to add a new light. Click on an existing light to modify or delete it.</p>
-   </div>
- {/if}
- 
+ <div class="info-container">
+   <button class="info-button" on:click={toggleInfo}>
+      {showInfo ? 'Hide Info' : 'Show Info'}
+   </button>
+   
+   {#if showInfo}
+      <div class="info-box">
+      <p>This floor plan allows you to add, edit, or remove lights. Click on an empty space to add a new light. Click on an existing light to modify or delete it.</p>
+      </div>
+   {/if}
+</div>
  
  <style>
+   .info-container {
+      display: flex;
+      align-items: flex-start;
+      margin-top: 0.5rem;
+   }
+
    .info-button {
-      margin-bottom: 0.5rem;  
       margin-top: 0.5rem;         
-      padding: 0.5rem 1rem;          
+      padding: 0.5rem;          
       background-color: #007bff;   
       color: white;                 
       border: none;                  
@@ -33,11 +39,12 @@
  
    .info-box {
       background-color: #f8f9fa;     
-      padding: 1rem;                 
+      padding: 0.25rem;                 
       border: 0.1rem solid #ddd;     
       margin-bottom: 1.5rem;         
       border-radius: 0.5rem;        
       font-size: 1rem;               
-      max-width: 90%;               
+      max-width: 90%; 
+      margin-left: 0.5rem;              
    }
  </style>
