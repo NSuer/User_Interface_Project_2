@@ -73,7 +73,7 @@ Light.defaults = {
     location_x: 0,
     location_y: 0,
     room: "unassigned",
-    on: false,
+    on: true,
     opacity: 1,
     color: "yellow",
     mode: "solid"
