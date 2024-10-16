@@ -1,5 +1,19 @@
 # User_Interface_Project_2
 
+# TO-DO
+- A title for the project, your names, and a link to your project write up. (In the GUI)
+- A graphic to indicate where this UI would reside on the physical smart object. (In the GUI)
+- An info button that, when clicked, explains the controls for simulating the object's use. (In the GUI) - William
+- In the documentation
+  -  Create a list of the controls you are including in this UI, the indicators you want display, and how these connect to the design goals you captured. (Label level 0)
+  -  Demo video
+- Levels 2-4 and beyond: 
+  - fake voice commands - Owen
+  - adding and editing lights - Nate
+  - Scenarios 
+  - Day Play through
+
+
 # Helpful Commands
 - npm run deploy - This will build and deploy the github page public website
 - npm run dev - runs site locally
