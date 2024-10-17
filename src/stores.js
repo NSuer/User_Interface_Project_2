@@ -174,15 +174,15 @@ export function run_command(command, group, color) {
         groupLights.forEach(light => light.on = false);
         updateLightsArray(groupLights)
     } else if (command === "disco") {
-        DiscoTime(lightsArray);
+        DiscoTime(groupLights);
     } else if (command === "blink") {
-        BlinkTime(lightsArray);
+        BlinkTime(groupLights);
     } else if (command === "fade") {
-        FadeTime(lightsArray);
+        FadeTime(groupLights);
     } else if (command === "rainbow") {
-        RainbowTime(lightsArray);
+        RainbowTime(groupLights);
     } else if (command === "shift") {
-        slowShiftColor(lightsArray, color, 5);
+        slowShiftColor(groupLights, color, 5);
         // groupLights.forEach(light => light.shift(color, 5));
     } else if (command === "changeColor") {
         groupLights.forEach(light => light.user_set_color = color);
