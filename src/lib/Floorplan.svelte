@@ -11,6 +11,8 @@
   let tempMode = '';
   let tempOpacity = 0;
 
+  let spreadDistance = 9;
+
   // Generate a basic floor plan with walls and doors
   let grid = Array.from({ length: gridHeight }, (_, rowIndex) => {
     return Array.from({ length: gridWidth }, (_, colIndex) => {
@@ -140,17 +142,16 @@
     {#each row as cell, colIndex}
       <div class="cell {cell}">
         {#if cell === 'empty'}
-          <!-- <button class="emptyCell" on:click={event => addNewLight(event)} data-row={rowIndex} data-col={colIndex}></button> -->
-          {#if $lights.find(light => light.on && Math.abs(light.location_x - rowIndex) + Math.abs(light.location_y - colIndex) <= 3)}
-            {#each $lights as light (light.id)}
-              {#if light.on && Math.abs(light.location_x - rowIndex) + Math.abs(light.location_y - colIndex) <= 3}
+          {#each $lights as light (light.id)}
+            {#if light.on && Math.abs(light.location_x - rowIndex) + Math.abs(light.location_y - colIndex) <= spreadDistance}
+              {#if !grid.slice(Math.min(light.location_x, rowIndex), Math.max(light.location_x, rowIndex) + 1).some(row => row.slice(Math.min(light.location_y, colIndex), Math.max(light.location_y, colIndex) + 1).includes('wall'))}
                 <button class="light-shine" on:click={event => addNewLight(event)} data-row={rowIndex} data-col={colIndex} style="
                   background-color: #{light.hex_color};
-                  opacity: {Math.max(0, light.opacity - (Math.abs(light.location_x - rowIndex) + Math.abs(light.location_y - colIndex)) * 0.2)};">
+                  opacity: {Math.max(0, light.opacity - (Math.abs(light.location_x - rowIndex) + Math.abs(light.location_y - colIndex)) * (1 / spreadDistance))};">
                 </button>
               {/if}
-            {/each}
-          {/if}
+            {/if}
+          {/each}  
         {/if}
         {#if cell === 'wall'}
           <div class="wall"></div>

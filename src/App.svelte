@@ -66,17 +66,11 @@
         <!-- Add button for each control and a dropdown, with label -->
         <div style="position:relative; left: 2.5%;">
           <label for="turnOnLights"> Turn on Lights:</label>
-          <button id="turnOnLights" on:click={() => run_command('on', document.getElementById('groupSelect_on').value, document.getElementById('colorSelect_on').value)}>Run</button>
+          <button id="turnOnLights" on:click={() => run_command('on', document.getElementById('groupSelect_on').value)}>Run</button>
           <label for="groupSelect_on">Group:</label>
           <select id="groupSelect_on">
             {#each $groupOptions as group}
               <option value={group}>{group}</option>
-            {/each}
-          </select>
-          <label for="colorSelect_on">Color:</label>
-          <select id="colorSelect_on">
-            {#each $colorOptions as color}
-              <option value={color}>{color}</option>
             {/each}
           </select>
         </div>
@@ -105,17 +99,11 @@
 
         <div style="position:relative; left: 2.5%; margin-top: 10px;">
           <label for="blinkLights"> Blink Lights:</label>
-          <button id="blinkLights" on:click={() => run_command('blink',  document.getElementById('groupSelect_blink').value, document.getElementById('colorSelect_blink').value)}>Run</button>
+          <button id="blinkLights" on:click={() => run_command('blink',  document.getElementById('groupSelect_blink').value)}>Run</button>
           <label for="groupSelect_blink">Group:</label>
           <select id="groupSelect_blink">
             {#each $groupOptions as group}
               <option value={group}>{group}</option>
-            {/each}
-          </select>
-          <label for="colorSelect_blink">Color:</label>
-          <select id="colorSelect_blink">
-            {#each $colorOptions as color}
-              <option value={color}>{color}</option>
             {/each}
           </select>
         </div>
