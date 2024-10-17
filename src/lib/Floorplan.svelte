@@ -12,7 +12,7 @@
   let tempOpacity = 0;
 
   // Generate a basic floor plan with walls and doors
-  const grid = Array.from({ length: gridHeight }, (_, rowIndex) => {
+  let grid = Array.from({ length: gridHeight }, (_, rowIndex) => {
     return Array.from({ length: gridWidth }, (_, colIndex) => {
       // Define walls and doors
       if (
@@ -140,7 +140,17 @@
     {#each row as cell, colIndex}
       <div class="cell {cell}">
         {#if cell === 'empty'}
-          <button class="emptyCell" on:click={event => addNewLight(event)} data-row={rowIndex} data-col={colIndex}></button>
+          <!-- <button class="emptyCell" on:click={event => addNewLight(event)} data-row={rowIndex} data-col={colIndex}></button> -->
+          {#if $lights.find(light => light.on && Math.abs(light.location_x - rowIndex) + Math.abs(light.location_y - colIndex) <= 3)}
+            {#each $lights as light (light.id)}
+              {#if light.on && Math.abs(light.location_x - rowIndex) + Math.abs(light.location_y - colIndex) <= 3}
+                <button class="light-shine" on:click={event => addNewLight(event)} data-row={rowIndex} data-col={colIndex} style="
+                  background-color: #{light.hex_color};
+                  opacity: {Math.max(0, light.opacity - (Math.abs(light.location_x - rowIndex) + Math.abs(light.location_y - colIndex)) * 0.2)};">
+                </button>
+              {/if}
+            {/each}
+          {/if}
         {/if}
         {#if cell === 'wall'}
           <div class="wall"></div>
@@ -267,6 +277,16 @@
     width: 100%;
   }
 
+  .light-shine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+  }
+
   .wall {
     background-color: black;
   }
@@ -284,7 +304,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    border: none;
+    border: black 3px solid;
     background-color: transparent;
   }
 
