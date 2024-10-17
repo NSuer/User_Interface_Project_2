@@ -128,6 +128,7 @@
       if (!light.on) {
         light.color = "grey";
         light.hex_color = colorMap["grey"];
+        light.opacity = 1;
       }
     });
   }
@@ -151,7 +152,7 @@
           {#each $lights as light (light.id)}
             {#if light.location_x === rowIndex && light.location_y === colIndex}
               <button class="light" style=
-              'background-color: {light.color};
+              'background-color: #{light.hex_color};
               opacity: {light.opacity}' on:click={event => editLight(event)} data-row={rowIndex} data-col={colIndex} aria-label="Edit light"></button>
             {/if}
           {/each}

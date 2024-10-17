@@ -23,6 +23,7 @@ export const colorMap = {"red" : "FF0000",
                 "grey" : "808080"
             }
 
+
 class Light {
     constructor(id, name, location_x, location_y, room, on, opacity, color, mode) {
         this.id = id;
@@ -63,7 +64,6 @@ class Light {
                 this.hex_color = `rgb(${endColor[0]}, ${endColor[1]}, ${endColor[2]})`;
                 clearInterval(interval);
             }
-            // We use 16 here to aproximate to 60fps
         }, 16);
         //
 
@@ -138,9 +138,11 @@ export function removeLight(lightIndex) {
     console.log("Current lights: " + JSON.stringify(get(lights)));
 }
 
-export function run_command(command, group, extra) {
+export function run_command(command, group, color) {
     // Find all lights in the group(room) and run the command on them
     // If group is "all" then run the command on all lights
+
+    console.log("Running command: " + command + " on group: " + group + " with color: " + color);
     
     // Make an array of all the lights in the group
     let lightsArray = get(lights);
@@ -150,7 +152,8 @@ export function run_command(command, group, extra) {
     if (command === "on") {
         groupLights.forEach(light => light.on = true);
         // turn all colors to yellow
-        groupLights.forEach(light => light.color = "yellow");
+        groupLights.forEach(light => light.color = color);
+        groupLights.forEach(element => element.hex_color = colorMap[element.color]);
         updateLightsArray(groupLights)
     } else if (command === "off") {
         groupLights.forEach(light => light.on = false);
@@ -158,18 +161,17 @@ export function run_command(command, group, extra) {
     } else if (command === "disco") {
         DiscoTime(lightsArray);
     } else if (command === "blink") {
-        BlinkTime(lightsArray);
+        BlinkTime(lightsArray, color);
     } else if (command === "fade") {
         FadeTime(lightsArray);
     } else if (command === "rainbow") {
         RainbowTime(lightsArray);
     } else if (command === "shift") {
-        let color = extra;
-        groupLights.forEach(light => light.shift(color, 5));
-        updateLightsArray(groupLights)
+        slowShiftColor(lightsArray, color, 5);
+        // groupLights.forEach(light => light.shift(color, 5));
     } else if (command === "changeColor") {
-        let color = extra;
         groupLights.forEach(light => light.color = color);
+        groupLights.forEach(element => element.hex_color = colorMap[element.color]);
         updateLightsArray(groupLights)
     }
 }
@@ -198,6 +200,7 @@ export function DiscoTime(lightsArray) {
                 for (let opacity = 0; opacity <= 1; opacity += 0.1) {
                     lightsArray = lightsArray.map(element => {
                         element.color = DiscoColors[colorIndex];
+                        element.hex_color = colorMap[element.color];
                         element.opacity = opacity;
                         return element;
                     });
@@ -212,14 +215,16 @@ export function DiscoTime(lightsArray) {
     setTimeout(() => clearInterval(interval1), 30000);
 }
 
-function BlinkTime(lightsArray) {
+function BlinkTime(lightsArray, color) {
     let interval = setInterval(() => {
         lightsArray = lightsArray.map(element => {
             if (element.on) {
                 element.on = false;
             } else {
                 element.on = true;
-                lightsArray.forEach(light => light.color = "yellow");
+                element.color = color;
+                element.hex_color = colorMap[element.color];
+
             }
             return element;
         });
@@ -231,15 +236,20 @@ function BlinkTime(lightsArray) {
 }
 
 function FadeTime(lightsArray) {
+    let opacity = 0;
+    let increment = 0.1;
     let interval = setInterval(() => {
-        for (let opacity = 0; opacity <= 1; opacity += 0.1) {
-            lightsArray = lightsArray.map(element => {
-                element.opacity = opacity;
-                return element;
-            });
-            updateLightsArray(lightsArray);
+        lightsArray = lightsArray.map(element => {
+            element.opacity = opacity;
+            return element;
+        });
+        updateLightsArray(lightsArray);
+        
+        opacity += increment;
+        if (opacity >= 1 || opacity <= 0) {
+            increment = -increment; // Reverse direction at bounds
         }
-    }, 500); // Small interval between each iteration
+    }, 100); // Adjust interval as needed for smooth fading
 
     // Stop the disco after 30 seconds
     setTimeout(() => clearInterval(interval), 30000);
@@ -253,6 +263,7 @@ function RainbowTime(lightsArray) {
     let interval = setInterval(() => {
         if (lightIndex < lightsArray.length) {
             lightsArray[lightIndex].color = RainbowColors[colorIndex];
+            lightsArray[lightIndex].hex_color = colorMap[RainbowColors[colorIndex]];
             updateLightsArray(lightsArray);
             lightIndex++;
         } else {
@@ -263,4 +274,40 @@ function RainbowTime(lightsArray) {
 
     // Stop the rainbow effect after 30 seconds
     setTimeout(() => clearInterval(interval), 30000);
+}
+
+export function slowShiftColor(lightsArray, newColor, duration) {
+    lightsArray.forEach(light => {
+        const startColor = light.hex_color.match(/.{1,2}/g).map(hex => parseInt(hex, 16));
+        const endColor = colorMap[newColor].match(/.{1,2}/g).map(hex => parseInt(hex, 16));
+        const steps = duration * 60; // Approx 60 FPS
+
+        let step = 0;
+        const stepChange = [
+            (endColor[0] - startColor[0]) / steps,
+            (endColor[1] - startColor[1]) / steps,
+            (endColor[2] - startColor[2]) / steps
+        ];
+
+        const interval = setInterval(() => {
+            if (step < steps) {
+                const newColorArray = [
+                    Math.round(startColor[0] + stepChange[0] * step),
+                    Math.round(startColor[1] + stepChange[1] * step),
+                    Math.round(startColor[2] + stepChange[2] * step)
+                ];
+                const hexColor = newColorArray.map(c => c.toString(16).padStart(2, '0')).join('');
+                light.hex_color = hexColor;
+                light.color = Object.keys(colorMap).find(key => colorMap[key] === light.hex_color) || light.color;
+                lights.update(currentLights => {
+                    return currentLights.map(l => (l.id === light.id ? light : l));
+                });
+                step++;
+            } else {
+                light.hex_color = colorMap[newColor];
+                light.color = newColor;
+                clearInterval(interval);
+            }
+        }, 1000 / 60); // 60 FPS
+    });
 }

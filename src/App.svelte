@@ -1,35 +1,37 @@
 <script>
+// @ts-nocheck
+
   import FloorPlan from './lib/Floorplan.svelte';
     import Info from './lib/Info.svelte';
-  import { DiscoTime } from './stores.js';
+  import { groupOptions, run_command, colorOptions } from './stores.js';
   import { lights } from './stores.js';
   let navValue = "Controls";
   let button1, button2, button3;
 
-  function animate(val) {
-    if (val == 1){
-      button1.animate(
-        [{ background: 'lightgray' }],
-        { duration: 200, direction: 'alternate', iterations: 2 },
-      )
-      navValue = 'Controls';
-    }
-    else if (val == 2) {
-      button2.animate(
-        [{ background: 'lightgray' }],
-        { duration: 200, direction: 'alternate', iterations: 2 },
-      )
-      navValue = 'Indicators';
-    }
-    else {
-      button3.animate(
-        [{ background: 'lightgray' }],
-        { duration: 200, direction: 'alternate', iterations: 2 },
-      )
-      navValue = 'Settings';
-    }
+  // function animate(val) {
+  //   if (val == 1){
+  //     button1.animate(
+  //       [{ background: 'lightgray' }],
+  //       { duration: 200, direction: 'alternate', iterations: 2 },
+  //     )
+  //     navValue = 'Controls';
+  //   }
+  //   else if (val == 2) {
+  //     button2.animate(
+  //       [{ background: 'lightgray' }],
+  //       { duration: 200, direction: 'alternate', iterations: 2 },
+  //     )
+  //     navValue = 'Indicators';
+  //   }
+  //   else {
+  //     button3.animate(
+  //       [{ background: 'lightgray' }],
+  //       { duration: 200, direction: 'alternate', iterations: 2 },
+  //     )
+  //     navValue = 'Settings';
+  //   }
 		
-	}
+	// }
 
 </script>
 
@@ -60,24 +62,121 @@
       </div>
     </div>
     <div class="information">
-      <nav>
         <h2 style="position:relative; left: 2.5%;">Controls</h2>
-        <ul>
-          <li><button type="button" bind:this={button1} on:click={() => DiscoTime()}>Controls</button></li>
-          <li><button type="button" bind:this={button2} on:click={() => animate(2)}>Indicators</button></li>
-          <li><button type="button" bind:this={button3} on:click={() => animate(3)}>Settings</button></li>
-        </ul>
-      </nav>
-      <div class="spacer"></div>
-      <div class="navText">
-        {#if navValue == "Controls"}
-          <p>Controls body text</p>
-        {:else if navValue == "Indicators"}
-          <p>Indicators body text</p>
-        {:else}
-          <p>Settings body text</p>
-        {/if}
-      </div>
+        <!-- Add button for each control and a dropdown, with label -->
+        <div style="position:relative; left: 2.5%;">
+          <label for="turnOnLights"> Turn on Lights:</label>
+          <button id="turnOnLights" on:click={() => run_command('on', document.getElementById('groupSelect_on').value, document.getElementById('colorSelect_on').value)}>Run</button>
+          <label for="groupSelect_on">Group:</label>
+          <select id="groupSelect_on">
+            {#each $groupOptions as group}
+              <option value={group}>{group}</option>
+            {/each}
+          </select>
+          <label for="colorSelect_on">Color:</label>
+          <select id="colorSelect_on">
+            {#each $colorOptions as color}
+              <option value={color}>{color}</option>
+            {/each}
+          </select>
+        </div>
+
+        <div style="position:relative; left: 2.5%; margin-top: 10px;">
+          <label for="turnOffLights"> Turn off Lights:</label>
+          <button id="turnOffLights" on:click={() => run_command('off', document.getElementById('groupSelect_off').value)}>Run</button>
+          <label for="groupSelect_off">Group:</label>
+          <select id="groupSelect_off">
+            {#each $groupOptions as group}
+              <option value={group}>{group}</option>
+            {/each}
+          </select>
+        </div>
+
+        <div style="position:relative; left: 2.5%; margin-top: 10px;">
+          <label for="discoLights"> Disco Mode:</label>
+          <button id="discoLights" on:click={() => run_command('disco',  document.getElementById('groupSelect_disco').value)}>Run</button>
+          <label for="groupSelect_disco">Group:</label>
+          <select id="groupSelect_disco">
+            {#each $groupOptions as group}
+              <option value={group}>{group}</option>
+            {/each}
+          </select>
+        </div>
+
+        <div style="position:relative; left: 2.5%; margin-top: 10px;">
+          <label for="blinkLights"> Blink Lights:</label>
+          <button id="blinkLights" on:click={() => run_command('blink',  document.getElementById('groupSelect_blink').value, document.getElementById('colorSelect_blink').value)}>Run</button>
+          <label for="groupSelect_blink">Group:</label>
+          <select id="groupSelect_blink">
+            {#each $groupOptions as group}
+              <option value={group}>{group}</option>
+            {/each}
+          </select>
+          <label for="colorSelect_blink">Color:</label>
+          <select id="colorSelect_blink">
+            {#each $colorOptions as color}
+              <option value={color}>{color}</option>
+            {/each}
+          </select>
+        </div>
+
+        <div style="position:relative; left: 2.5%; margin-top: 10px;">
+          <label for="fadeLights"> Fade Lights:</label>
+          <button id="fadeLights" on:click={() => run_command('fade',  document.getElementById('groupSelect_fade').value)}>Run</button>
+          <label for="groupSelect_fade">Group:</label>
+          <select id="groupSelect_fade">
+            {#each $groupOptions as group}
+              <option value={group}>{group}</option>
+            {/each}
+          </select>
+        </div>
+
+        <div style="position:relative; left: 2.5%; margin-top: 10px;">
+          <label for="rainbowLights"> Rainbow Mode:</label>
+          <button id="rainbowLights" on:click={() => run_command('rainbow',  document.getElementById('groupSelect_rainbow').value)}>Run</button>
+          <label for="groupSelect_rainbow">Group:</label>
+          <select id="groupSelect_rainbow">
+            {#each $groupOptions as group}
+              <option value={group}>{group}</option>
+            {/each}
+          </select>
+        </div>
+
+        <div style="position:relative; left: 2.5%; margin-top: 10px;">
+          <label for="shiftLights"> Shift Lights:</label>
+          <button id="shiftLights" on:click={() => run_command('shift', document.getElementById('groupSelect_shift').value, document.getElementById('colorSelect_shift').value)}>Run</button>
+          <label for="groupSelect_shift">Group:</label>
+          <select id="groupSelect_shift">
+            {#each $groupOptions as group}
+              <option value={group}>{group}</option>
+            {/each}
+          </select>
+          <label for="colorSelect_shift">Color:</label>
+          <select id="colorSelect_shift">
+            {#each $colorOptions as color}
+              <option value={color}>{color}</option>
+            {/each}
+          </select>
+        </div>
+
+        <div style="position:relative; left: 2.5%; margin-top: 10px;">
+          <label for="changeColorLights"> Change Color:</label>
+          <button id="changeColorLights" bind:this={button2} on:click={() => run_command('changeColor', document.getElementById('groupSelect_changeColor').value, document.getElementById('colorSelect_changeColor').value)}>Run</button>
+          <label for="groupSelect_changeColor">Group:</label>
+          <select id="groupSelect_changeColor">
+            {#each $groupOptions as group}
+              <option value={group}>{group}</option>
+            {/each}
+          </select>
+          <label for="colorSelect_changeColor">Color:</label>
+          <select id="colorSelect_changeColor">
+            {#each $colorOptions as color}
+              <option value={color}>{color}</option>
+            {/each}
+          </select>
+        </div>
+
+        
     </div>
   </main>
   <footer>William Braun, Owen Richards, Nathan Suer, Sam Weese</footer>
