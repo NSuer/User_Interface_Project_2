@@ -173,9 +173,11 @@
         {#if $lights.find(light => light.location_x === rowIndex && light.location_y === colIndex)}
           {#each $lights as light (light.id)}
             {#if light.location_x === rowIndex && light.location_y === colIndex}
-              <button class="light" style=
-              'background-color: #{light.hex_color};
-              opacity: {light.opacity}' on:click={event => editLight(event)} data-row={rowIndex} data-col={colIndex} aria-label="Edit light"></button>
+              <div class="light_box_around">
+                <button class="light" style=
+                'background-color: #{light.hex_color};
+                opacity: {light.opacity}' on:click={event => editLight(event)} data-row={rowIndex} data-col={colIndex} aria-label="Edit light"></button>
+              </div>
             {/if}
           {/each}
         {/if}
@@ -303,14 +305,24 @@
     background-color: black;
   }
 
+  .light_box_around {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 90%;
+    width: 90%;
+    border: black 2px solid;
+    background-color: transparent;
+  }
+
   .light {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    border: black 3px solid;
     background-color: transparent;
+    border: black 0px solid;
   }
 
 </style>

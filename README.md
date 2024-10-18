@@ -10,8 +10,8 @@
 - Levels 2-4 and beyond: 
   - fake voice commands - Nate
   - adding and editing lights - Nate
-  - Scenarios 
-  - Day Play through
+  - Scenarios - Nate
+  - Day Play through - Nate
 ## Sam is working on (in order):
 - adding lightbulb icon
 - light fading and ray tracing for displaying light effects on the grid
