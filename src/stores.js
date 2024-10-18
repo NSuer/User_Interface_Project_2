@@ -7,21 +7,25 @@ import { get } from 'svelte/store';
 // Light stuff -------------------------------------------------------------------------------------
 
 // Options for properties in the Light class
+
+export let isCommandRunning = writable(false);
+
 export let colorOptions = writable(["red", "blue", "green", "yellow", "purple", "orange", "brown", "grey"]);
 export let modeOptions = writable(["solid", "blink", "fade"]);
-export let roomOptions = writable(["unassigned", "living room", "kitchen", "bedroom", "bathroom", "hallway"]); 
+export let roomOptions = writable(["unassigned", "living room", "kitchen", "bedroom", "bathroom", "hallway"]);
 
 export let groupOptions = writable(["all", "living room", "kitchen", "bedroom", "bathroom", "hallway"]);
 
-export const colorMap = {"red" : "FF0000", 
-                "blue" : "0000FF",
-                "green" : "00FF00",
-                "yellow" : "FFFF00",
-                "purple" : "FF00FF",
-                "orange" : "FFA500",
-                "brown" : "A52A2A",
-                "grey" : "808080"
-            }
+export const colorMap = {
+    "red": "FF0000",
+    "blue": "0000FF",
+    "green": "00FF00",
+    "yellow": "FFFF00",
+    "purple": "FF00FF",
+    "orange": "FFA500",
+    "brown": "A52A2A",
+    "grey": "808080"
+}
 
 
 class Light {
@@ -50,10 +54,10 @@ class Light {
         const steps = milliseconds / 16; // Approx 60 FPS
 
         let step = 0;
-        const stepChange = [ 
-            (endColor[0] - startColor[0]) / steps, 
-            (endColor[1] - startColor[1]) / steps, 
-            (endColor[2] - startColor[2]) / steps 
+        const stepChange = [
+            (endColor[0] - startColor[0]) / steps,
+            (endColor[1] - startColor[1]) / steps,
+            (endColor[2] - startColor[2]) / steps
         ];
 
         const interval = setInterval(() => {
@@ -154,11 +158,16 @@ export function removeLight(lightIndex) {
 }
 
 export function run_command(command, group, color) {
+    if (get(isCommandRunning)) {
+        console.log("Command is already running:", get(isCommandRunning));
+        console.log("I don't even know how you got here, I thought I had it locked tight");
+        return;
+    }
     // Find all lights in the group(room) and run the command on them
     // If group is "all" then run the command on all lights
 
     console.log("Running command: " + command + " on group: " + group + " with color: " + color);
-    
+
     // Make an array of all the lights in the group
     let lightsArray = get(lights);
     let groupLights = lightsArray.filter(light => light.room === group || group === "all");
@@ -166,10 +175,7 @@ export function run_command(command, group, color) {
     // Run the command on all the lights in the group
     if (command === "on") {
         groupLights.forEach(light => light.on = true);
-        // turn all colors to yellow
-        groupLights.forEach(light => light.color = light.user_set_color);
-        groupLights.forEach(element => element.hex_color = colorMap[element.color]);
-        updateLightsArray(groupLights)
+        resetLights(groupLights);
     } else if (command === "off") {
         groupLights.forEach(light => light.on = false);
         updateLightsArray(groupLights)
@@ -186,9 +192,7 @@ export function run_command(command, group, color) {
         // groupLights.forEach(light => light.shift(color, 5));
     } else if (command === "changeColor") {
         groupLights.forEach(light => light.user_set_color = color);
-        groupLights.forEach(light => light.color = color);
-        groupLights.forEach(element => element.hex_color = colorMap[element.color]);
-        updateLightsArray(groupLights)
+        resetLights(groupLights);
     }
 }
 
@@ -211,8 +215,18 @@ export function DiscoTime(lightsArray) {
     let DiscoColors = ["red", "blue", "green", "yellow", "purple", "orange", "pink"];
 
     let interval1 = setInterval(() => {
+        if (!get(isCommandRunning)) {
+            clearInterval(interval1);
+            resetLights(lightsArray);
+            return;
+        }
         for (let colorIndex = 0; colorIndex < DiscoColors.length; colorIndex++) {
             let interval2 = setInterval(() => {
+                if (!get(isCommandRunning)) {
+                    clearInterval(interval2);
+                    resetLights(lightsArray);
+                    return;
+                }
                 for (let opacity = 0; opacity <= 1; opacity += 0.1) {
                     lightsArray = lightsArray.map(element => {
                         element.color = DiscoColors[colorIndex];
@@ -223,82 +237,49 @@ export function DiscoTime(lightsArray) {
                     updateLightsArray(lightsArray);
                 }
             }, 10); // Small interval between each iteration
-            setTimeout(() => clearInterval(interval2), 30000);
         }
     }, 60); // Small interval between each iteration
-
-    // Stop the disco after 30 seconds
-    setTimeout(() => clearInterval(interval1), 30000);
-    // Set the lights back to their original state
-    setTimeout(() => {
-        lightsArray = lightsArray.map(element => {
-            element.color = element.user_set_color;
-            element.hex_color = colorMap[element.color];
-            element.opacity = element.user_set_opacity;
-            return element;
-        });
-        updateLightsArray(lightsArray);
-    }, 30000);
 }
 
 function BlinkTime(lightsArray) {
     let interval = setInterval(() => {
+        if (!get(isCommandRunning)) {
+            clearInterval(interval);
+            resetLights(lightsArray);
+            return;
+        }
         lightsArray = lightsArray.map(element => {
+            element.on = !element.on;
             if (element.on) {
-                element.on = false;
-            } else {
-                element.on = true;
                 element.color = element.user_set_color;
                 element.hex_color = colorMap[element.color];
-
             }
             return element;
         });
         updateLightsArray(lightsArray);
     }, 500); // Small interval between each iteration
-
-    // Stop the disco after 30 seconds
-    setTimeout(() => clearInterval(interval), 30000);
-    // Set the lights back to their original state
-    setTimeout(() => {
-        lightsArray = lightsArray.map(element => {
-            element.color = element.user_set_color;
-            element.hex_color = colorMap[element.color];
-            element.opacity = element.user_set_opacity;
-            return element;
-        });
-        updateLightsArray(lightsArray);
-    }, 30000);
 }
 
 function FadeTime(lightsArray) {
     let opacity = 0;
     let increment = 0.1;
     let interval = setInterval(() => {
+        if (!get(isCommandRunning)) {
+            clearInterval(interval);
+            resetLights(lightsArray);
+            return;
+        }
         lightsArray = lightsArray.map(element => {
             element.opacity = opacity;
             return element;
         });
         updateLightsArray(lightsArray);
-        
+
         opacity += increment;
         if (opacity >= 1 || opacity <= 0) {
             increment = -increment; // Reverse direction at bounds
         }
     }, 100); // Adjust interval as needed for smooth fading
-
-    // Stop the disco after 30 seconds
-    setTimeout(() => clearInterval(interval), 30000);
-    // Set the lights back to their original state
-    setTimeout(() => {
-        lightsArray = lightsArray.map(element => {
-            element.color = element.user_set_color;
-            element.hex_color = colorMap[element.color];
-            element.opacity = element.user_set_opacity;
-            return element;
-        });
-        updateLightsArray(lightsArray);
-    }, 30000);
 }
 
 function RainbowTime(lightsArray) {
@@ -307,6 +288,11 @@ function RainbowTime(lightsArray) {
     let colorIndex = 0;
 
     let interval = setInterval(() => {
+        if (!get(isCommandRunning)) {
+            clearInterval(interval);
+            resetLights(lightsArray);
+            return;
+        }
         if (lightIndex < lightsArray.length) {
             lightsArray[lightIndex].color = RainbowColors[colorIndex];
             lightsArray[lightIndex].hex_color = colorMap[RainbowColors[colorIndex]];
@@ -317,19 +303,16 @@ function RainbowTime(lightsArray) {
             colorIndex = (colorIndex + 1) % RainbowColors.length;
         }
     }, 1000); // 1 second interval between each light change
+}
 
-    // Stop the rainbow effect after 30 seconds
-    setTimeout(() => clearInterval(interval), 30000);
-    // Set the lights back to their original state
-    setTimeout(() => {
-        lightsArray = lightsArray.map(element => {
-            element.color = element.user_set_color;
-            element.hex_color = colorMap[element.color];
-            element.opacity = element.user_set_opacity;
-            return element;
-        });
-        updateLightsArray(lightsArray);
-    }, 30000);
+function resetLights(lightsArray) {
+    lightsArray = lightsArray.map(element => {
+        element.color = element.user_set_color;
+        element.hex_color = colorMap[element.color];
+        element.opacity = element.user_set_opacity;
+        return element;
+    });
+    updateLightsArray(lightsArray);
 }
 
 export function slowShiftColor(lightsArray, newColor, duration) {
