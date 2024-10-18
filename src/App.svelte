@@ -99,7 +99,6 @@
       </div>
     <Controls />
   </main>
-  <footer>William Braun, Owen Richards, Nathan Suer, Sam Weese</footer>
 </body>
 
 <style>
@@ -237,15 +236,5 @@
 
     display: grid;
     grid-template-columns: 70% 30%;
-  }
-
-  footer {
-    position: relative;
-
-    width: 95%;
-    left: 2.5%;
-
-    text-align: center;
-    color: rgb(102, 102, 102);
   }
 </style>

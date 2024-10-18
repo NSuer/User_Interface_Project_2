@@ -19,6 +19,7 @@
 <div class="control_box">
     <h2 class="voice_controls">Voice Controls</h2>
     <div class="voice_controls">
+        <span style="color: {$currentCommand === 'on' ? 'green' : 'red'};">●</span>
         <label for="turnOnLights"> Turn on Lights:</label>
         <button
             id="turnOnLights"
@@ -34,10 +35,10 @@
                 <option value={group}>{group}</option>
             {/each}
         </select>
-        <span style="color: {$currentCommand === 'on' ? 'green' : 'red'};">●</span>
     </div>
 
     <div class="voice_controls">
+        <span style="color: {$currentCommand === 'off' ? 'green' : 'red'};">●</span>
         <label for="turnOffLights"> Turn off Lights:</label>
         <button
             id="turnOffLights"
@@ -53,10 +54,10 @@
                 <option value={group}>{group}</option>
             {/each}
         </select>
-        <span style="color: {$currentCommand === 'off' ? 'green' : 'red'};">●</span>
     </div>
 
     <div class="voice_controls">
+        <span style="color: {$currentCommand === 'changeColor' ? 'green' : 'red'};">●</span>
         <label for="changeColorLights"> Change Color:</label>
         <button
             id="changeColorLights"
@@ -79,10 +80,10 @@
                 <option value={color}>{color}</option>
             {/each}
         </select>
-        <span style="color: {$currentCommand === 'changeColor' ? 'green' : 'red'};">●</span>
     </div>
 
     <div class="voice_controls">
+        <span style="color: {$currentCommand === 'shift' ? 'green' : 'red'};">●</span>
         <label for="shiftLights"> Shift Lights:</label>
         <button
             id="shiftLights"
@@ -105,10 +106,10 @@
                 <option value={color}>{color}</option>
             {/each}
         </select>
-        <span style="color: {$currentCommand === 'shift' ? 'green' : 'red'};">●</span>
     </div>
 
     <div class="voice_controls">
+        <span style="color: {$currentCommand === 'disco' ? 'green' : 'red'};">●</span>
         <label for="discoLights"> Disco Mode:</label>
         <button
             id="discoLights"
@@ -127,10 +128,10 @@
                 <option value={group}>{group}</option>
             {/each}
         </select>
-        <span style="color: {$currentCommand === 'disco' ? 'green' : 'red'};">●</span>
     </div>
 
     <div class="voice_controls">
+        <span style="color: {$currentCommand === 'blink' ? 'green' : 'red'};">●</span>
         <label for="blinkLights"> Blink Lights:</label>
         <button
             id="blinkLights"
@@ -149,10 +150,10 @@
                 <option value={group}>{group}</option>
             {/each}
         </select>
-        <span style="color: {$currentCommand === 'blink' ? 'green' : 'red'};">●</span>
     </div>
 
     <div class="voice_controls">
+        <span style="color: {$currentCommand === 'fade' ? 'green' : 'red'};">●</span>
         <label for="fadeLights"> Fade Lights:</label>
         <button
             id="fadeLights"
@@ -171,10 +172,10 @@
                 <option value={group}>{group}</option>
             {/each}
         </select>
-        <span style="color: {$currentCommand === 'fade' ? 'green' : 'red'};">●</span>
     </div>
 
     <div class="voice_controls">
+        <span style="color: {$currentCommand === 'rainbow' ? 'green' : 'red'};">●</span>
         <label for="rainbowLights"> Rainbow Mode:</label>
         <button
             id="rainbowLights"
@@ -192,13 +193,13 @@
             {#each $groupOptions as group}
                 <option value={group}>{group}</option>
             {/each}
-        </select>
-        <span style="color: {$currentCommand === 'rainbow' ? 'green' : 'red'};">●</span>
+        </select>  
     </div>
 
     <!--  -->
     <h2 class="schedule_controls">Schedule Controls</h2>
     <div class="schedule_controls">
+        <span style="color: {$currentCommand === 'day' ? 'green' : 'red'};">●</span>
         <label for="dayLights"> Simulate Daytime:</label>
         <button
             id="dayLights"
@@ -206,10 +207,10 @@
                 run_command(
                     "day"
                 )}
-            disabled={$isCommandRunning}>Run</button>
-        <span style="color: {$currentCommand === 'day' ? 'green' : 'red'};">●</span>
+            disabled={$isCommandRunning}>Run</button>     
     </div>
     <div class="schedule_controls">
+        <span style="color: {$currentCommand === 'night' ? 'green' : 'red'};">●</span>
         <label for="nightLights"> Simulate Nighttime:</label>
         <button
             id="nightLights"
@@ -218,8 +219,8 @@
                     "night"
                 )}
             disabled={$isCommandRunning}>Run</button>
-        <span style="color: {$currentCommand === 'night' ? 'green' : 'red'};">●</span>
     </div>
+    <footer>William Braun, Owen Richards, Nathan Suer, Sam Weese</footer>
 </div>
 
 <style>
@@ -263,4 +264,14 @@
         left: 2.5%;
         margin-top: 10px;
     }
+    footer {
+    position: relative;
+
+    width: 95%;
+    margin-top: 150px;
+    left: 2.5%;
+
+    text-align: center;
+    color: rgb(102, 102, 102);
+  }
 </style>
