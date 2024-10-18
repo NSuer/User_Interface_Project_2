@@ -17,6 +17,18 @@
 </script>
 
 <div class="control_box">
+    <header>
+        <div class="titleAndImg">
+            <h1 class="title">The Smart Lightbulb</h1>
+            <img
+            src="src/assets/powered-bulb.png"
+            width="50px"
+            height="50px"
+            alt=""
+            />
+        </div>
+    </header>
+    <div class="spacer" style="bottom: 40px;"></div>
     <h2 class="voice_controls">Voice Controls</h2>
     <div class="voice_controls">
         <span style="color: {$currentCommand === 'on' ? 'green' : 'red'};">●</span>
@@ -258,20 +270,48 @@
         position: relative;
         left: 2.5%;
         margin-top: 10px;
+        bottom: 30px;
     }
     .schedule_controls {
         position: relative;
         left: 2.5%;
         margin-top: 10px;
+        bottom: 30px;
     }
     footer {
     position: relative;
 
     width: 95%;
-    margin-top: 150px;
+    margin-top: 60px;
     left: 2.5%;
 
     text-align: center;
     color: rgb(102, 102, 102);
+  }
+
+  .titleAndImg {
+    position: relative;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    bottom: 20px;
+  }
+
+  .title {
+    position: relative;
+    font-size: 2em;
+    padding: 0;
+  }
+
+  .spacer {
+    position: relative;
+    height: 0.1%;
+    left: 2.5%;
+    width: 95%;
+
+    background-color: rgba(19, 19, 19, 0.3);
   }
 </style>

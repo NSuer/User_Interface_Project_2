@@ -27,15 +27,19 @@
    }
 
    .info-button {
-      margin-top: 0.5rem;         
-      padding: 0.5rem;          
+      position: relative;
+
+      margin-top: 0.5rem;     
+      margin-left: 15px;    
+      padding: 0.5rem;         
       background-color: rgb(251, 203, 51);   
       color: black;                 
       border: none;                  
-      border-radius: 0.5rem;         
+      border-radius: 10px;         
       cursor: pointer;               
       font-size: 1rem;              
-      width: 20%;                    
+      width: 20%;       
+      bottom: 7px;             
    }
  
    .info-box {
