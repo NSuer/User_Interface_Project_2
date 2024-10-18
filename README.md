@@ -198,3 +198,5 @@ Navigation and/or controls are toggleable to leave room for the main grid.
 # AI Use
 - I used the following prompt "Using svelte and js, make me a component that will allow me to design floorplans for houses. All floorplans are one floor. Have options for doors, lights, and walls" to get the basic room maker. It was functional. This was useful but only will be used as a basis for future work. Here is an image of what was made
 ![Room Maker](src/pictures/basicRoomMaker.png)
+- Used chatgpt to make svg icon for power button and mic button
+- 

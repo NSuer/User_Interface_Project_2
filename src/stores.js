@@ -1,6 +1,7 @@
 import { writable } from "svelte/store";
 import { readable } from 'svelte/store';
 import { get } from 'svelte/store';
+import { fade } from "svelte/transition";
 
 
 
@@ -12,7 +13,7 @@ export let isCommandRunning = writable(false);
 export let currentCommand = writable("");
 
 export let colorOptions = writable(["red", "blue", "green", "yellow", "purple", "orange", "brown", "grey"]);
-export let modeOptions = writable(["solid", "blink", "fade"]);
+export let scheduleOptions = writable(["none", "On during day, off at night", "On at night, off during day"]);
 export let roomOptions = writable(["unassigned", "living room", "kitchen", "bedroom", "bathroom", "hallway"]);
 
 export let groupOptions = writable(["all", "living room", "kitchen", "bedroom", "bathroom", "hallway"]);
@@ -30,7 +31,7 @@ export const colorMap = {
 
 
 class Light {
-    constructor(id, name, location_x, location_y, room, on, opacity, color, mode) {
+    constructor(id, name, location_x, location_y, room, on, opacity, color, schedule) {
         this.id = id;
         this.name = name;
         this.location_x = location_x;
@@ -42,7 +43,7 @@ class Light {
         this.user_set_color = color;
         this.color = color;
         this.hex_color = colorMap[color];
-        this.mode = mode;
+        this.schedule = schedule;
     }
 
     shift(a_color, seconds) {
@@ -85,26 +86,26 @@ Light.defaults = {
     on: true,
     opacity: 1,
     color: "yellow",
-    mode: "solid"
+    schedule: "none"
 };
 
 export let lights = writable([
-    new Light(0, "Light 1", 4, 4, "kitchen", true, 1, "yellow", "solid"),
-    new Light(1, "Light 2", 11, 4, "kitchen", true, 1, "blue", "solid"),
-    new Light(2, "Light 3", 4, 15, "living room", true, 1, "green", "solid"),
-    new Light(3, "Light 4", 11, 15, "living room", true, 1, "red", "solid"),
-    new Light(4, "Light 5", 4, 24, "living room", true, 1, "purple", "solid"),
-    new Light(5, "Light 6", 11, 24, "living room", true, 1, "orange", "solid"),
-    new Light(6, "Light 7", 4, 33, "living room", true, 1, "brown", "solid"),
-    new Light(7, "Light 8", 11, 33, "living room", true, 1, "yellow", "solid"),
-    new Light(8, "Light 9", 19, 4, "closet", true, 1, "blue", "solid"),
-    new Light(9, "Light 10", 25, 4, "closet", true, 1, "green", "solid"),
-    new Light(10, "Light 11", 19, 15, "bedroom", true, 1, "red", "solid"),
-    new Light(11, "Light 12", 26, 13, "bathroom", true, 1, "yellow", "solid"),
-    new Light(12, "Light 13", 19, 24, "bedroom", true, 1, "purple", "solid"),
-    new Light(13, "Light 14", 26, 24, "bedroom", true, 1, "orange", "solid"),
-    new Light(14, "Light 15", 19, 33, "bedroom", true, 1, "brown", "solid"),
-    new Light(15, "Light 16", 26, 33, "bedroom", true, 1, "yellow", "solid")
+    new Light(0, "Light 1", 4, 4, "kitchen", true, 1, "yellow", "On during day, off at night"),
+    new Light(1, "Light 2", 11, 4, "kitchen", true, 1, "blue", "On during day, off at night"),
+    new Light(2, "Light 3", 4, 13, "living room", true, 1, "green", "On at night, off during day"),
+    new Light(3, "Light 4", 11, 13, "living room", true, 1, "yellow", "On at night, off during day"),
+    new Light(4, "Light 5", 4, 24, "living room", true, 1, "purple", "On at night, off during day"),
+    new Light(5, "Light 6", 11, 24, "living room", true, 1, "orange", "On at night, off during day"),
+    new Light(6, "Light 7", 4, 35, "living room", true, 1, "brown", "On at night, off during day"),
+    new Light(7, "Light 8", 11, 35, "living room", true, 1, "red", "On at night, off during day"),
+    new Light(8, "Light 9", 19, 4, "closet", true, 1, "blue", "On during day, off at night"),
+    new Light(9, "Light 10", 25, 4, "closet", true, 1, "green", "On during day, off at night"),
+    new Light(10, "Light 11", 19, 13, "bedroom", true, 1, "red", "On at night, off during day"),
+    new Light(11, "Light 12", 26, 13, "bathroom", true, 1, "yellow", "On during day, off at night"),
+    new Light(12, "Light 13", 19, 24, "bedroom", true, 1, "purple", "On at night, off during day"),
+    new Light(13, "Light 14", 26, 24, "bedroom", true, 1, "orange", "On at night, off during day"),
+    new Light(14, "Light 15", 19, 35, "bedroom", true, 1, "brown", "On at night, off during day"),
+    new Light(15, "Light 16", 26, 35, "bedroom", true, 1, "yellow", "On at night, off during day")
 ]);
 
 export function updateLight(lightIndex, lightData = {}) {
@@ -121,7 +122,7 @@ export function updateLight(lightIndex, lightData = {}) {
                     lightData.on !== undefined ? lightData.on : light.on,
                     lightData.opacity !== undefined ? lightData.opacity : light.opacity,
                     lightData.color || light.color,
-                    lightData.mode || light.mode
+                    lightData.schedule || light.schedule
                 );
             }
             return light;
@@ -140,7 +141,7 @@ export function addLight(lightData = {}) {
         lightData.on || Light.defaults.on,
         lightData.opacity || Light.defaults.opacity,
         lightData.color || Light.defaults.color,
-        lightData.mode || Light.defaults.mode
+        lightData.schedule || Light.defaults.schedule
     );
     lights.update(currentLights => [...currentLights, newLight]);
     console.log("Added light: " + JSON.stringify(newLight));
@@ -169,6 +170,7 @@ export function run_command(command, group, color) {
 
     currentCommand.set(command);
     isCommandRunning.set(true);
+    console.log("Command is running:", get(isCommandRunning));
 
     console.log("Running command: " + command + " on group: " + group + " with color: " + color);
 
@@ -185,6 +187,13 @@ export function run_command(command, group, color) {
         groupLights.forEach(light => light.on = false);
         updateLightsArray(groupLights)
         stop_command();
+    } else if (command === "changeColor") {
+        groupLights.forEach(light => light.user_set_color = color);
+        resetLights(groupLights);
+        stop_command();
+    } else if (command === "shift") {
+        groupLights.forEach(light => light.user_set_color = color);
+        slowShiftColor(groupLights, 5);
     } else if (command === "disco") {
         DiscoTime(groupLights);
     } else if (command === "blink") {
@@ -193,14 +202,22 @@ export function run_command(command, group, color) {
         FadeTime(groupLights);
     } else if (command === "rainbow") {
         RainbowTime(groupLights);
-    } else if (command === "shift") {
-        slowShiftColor(groupLights, color, 5);
+    } else if (command === "day") {
+        let dayLights = lightsArray.filter(light => light.schedule === "On during day, off at night");
+        let nightLights = lightsArray.filter(light => light.schedule === "On at night, off during day");
+        dayLights.forEach(light => light.on = true);
+        nightLights.forEach(light => light.on = false);
+        resetLights(nightLights.concat(dayLights));
         stop_command();
-    } else if (command === "changeColor") {
-        groupLights.forEach(light => light.user_set_color = color);
-        resetLights(groupLights);
+    } else if (command === "night") {
+        let dayLights = lightsArray.filter(light => light.schedule === "On during day, off at night");
+        let nightLights = lightsArray.filter(light => light.schedule === "On at night, off during day");
+        dayLights.forEach(light => light.on = false);
+        nightLights.forEach(light => light.on = true);
+        resetLights(nightLights.concat(dayLights));
         stop_command();
     }
+
 }
 
 export function stop_command() {
@@ -332,41 +349,46 @@ function resetLights(lightsArray) {
     updateLightsArray(lightsArray);
 }
 
-export function slowShiftColor(lightsArray, newColor, duration) {
-    const startColors = lightsArray.map(light => light.hex_color.match(/.{1,2}/g).map(hex => parseInt(hex, 16)));
-    const endColor = colorMap[newColor].match(/.{1,2}/g).map(hex => parseInt(hex, 16));
+async function slowShiftColor(lightsArray, duration) {
+    let startColors = lightsArray.map(light => light.hex_color.match(/.{1,2}/g).map(hex => parseInt(hex, 16)));
     const steps = duration * 60; // Approx 60 FPS
 
     let step = 0;
-    const stepChanges = startColors.map(startColor => [
-        (endColor[0] - startColor[0]) / steps,
-        (endColor[1] - startColor[1]) / steps,
-        (endColor[2] - startColor[2]) / steps
-    ]);
 
     const interval = setInterval(() => {
+        if (!get(isCommandRunning)) {
+            clearInterval(interval);
+            resetLights(lightsArray);
+            stop_command();
+            return;
+        }
         if (step < steps) {
-            lightsArray = lightsArray.map((light, index) => {
+            lightsArray.forEach((light, index) => {
+                let endColor = colorMap[light.user_set_color].match(/.{1,2}/g).map(hex => parseInt(hex, 16));
+                let stepChanges = [
+                    (endColor[0] - startColors[index][0]) / steps,
+                    (endColor[1] - startColors[index][1]) / steps,
+                    (endColor[2] - startColors[index][2]) / steps
+                ];
                 const newColorArray = [
-                    Math.round(startColors[index][0] + stepChanges[index][0] * step),
-                    Math.round(startColors[index][1] + stepChanges[index][1] * step),
-                    Math.round(startColors[index][2] + stepChanges[index][2] * step)
+                    Math.round(startColors[index][0] + stepChanges[0] * step),
+                    Math.round(startColors[index][1] + stepChanges[1] * step),
+                    Math.round(startColors[index][2] + stepChanges[2] * step)
                 ];
                 const hexColor = newColorArray.map(c => c.toString(16).padStart(2, '0')).join('');
                 light.hex_color = hexColor;
                 light.color = Object.keys(colorMap).find(key => colorMap[key] === light.hex_color) || light.color;
-                return light;
             });
-            lights.set(lightsArray);
+            updateLightsArray(lightsArray);
             step++;
         } else {
-            lightsArray = lightsArray.map(light => {
-                light.hex_color = colorMap[newColor];
-                light.color = newColor;
-                return light;
+            lightsArray.forEach(light => {
+                light.hex_color = colorMap[light.user_set_color];
+                light.color = light.user_set_color;
             });
-            lights.set(lightsArray);
+            updateLightsArray(lightsArray);
             clearInterval(interval);
+            stop_command();
         }
     }, 1000 / 60); // 60 FPS
 }

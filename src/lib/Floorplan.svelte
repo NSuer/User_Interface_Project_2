@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { lights, updateLight, addLight, removeLight, colorOptions, modeOptions, roomOptions, colorMap } from '../stores.js';
+  import { lights, updateLight, addLight, removeLight, colorOptions, scheduleOptions, roomOptions, colorMap } from '../stores.js';
   const gridWidth = 40;  // In Columns
   const gridHeight = 30; // In Rows
 
@@ -8,10 +8,10 @@
   let tempRoom = '';
   let tempOn = false;
   let tempColor = '';
-  let tempMode = '';
+  let tempSchedule = '';
   let tempOpacity = 0;
 
-  let spreadDistance = 9;
+  let spreadDistance = 11;
 
   // Generate a basic floor plan with walls and doors
   let grid = Array.from({ length: gridHeight }, (_, rowIndex) => {
@@ -19,15 +19,29 @@
       // Define walls and doors
       if (
         // Doorway into apartment
-        (rowIndex === Math.floor(gridHeight * 0.0) && colIndex === Math.floor(gridWidth * 0.33))
+        (rowIndex === 0 && colIndex === 12)
+        || (rowIndex === 0 && colIndex === 13)
+        || (rowIndex === 0 && colIndex === 14)
         // Doorway into bedroom
-        || (rowIndex === Math.floor(gridHeight * 0.5) && colIndex === Math.floor(gridWidth * 0.33))
+        || (rowIndex === 15 && colIndex === 12)
+        || (rowIndex === 15 && colIndex === 13)
+        || (rowIndex === 15 && colIndex === 14)
         // Doorway into bathroom
-        || (rowIndex === Math.floor(gridHeight * 0.65) && colIndex === Math.floor(gridWidth * 0.23))
+        || (rowIndex === 18 && colIndex === 9)
+        || (rowIndex === 19 && colIndex === 9)
+        || (rowIndex === 20 && colIndex === 9)
         // Doorway into closet
-        || (rowIndex === Math.floor(gridHeight * 0.8) && colIndex === Math.floor(gridWidth * 0.33))
+        || (rowIndex === 24 && colIndex === 12)
+        || (rowIndex === 24 && colIndex === 13)
+        || (rowIndex === 24 && colIndex === 14)
         // Doorway into kitchen
-        || (rowIndex === Math.floor(gridHeight * 0.1) && colIndex === Math.floor(gridWidth * 0.23))
+        || (rowIndex === 1 && colIndex === 9)
+        || (rowIndex === 2 && colIndex === 9)
+        || (rowIndex === 3 && colIndex === 9)
+        || (rowIndex === 4 && colIndex === 9)
+        || (rowIndex === 5 && colIndex === 9)
+        || (rowIndex === 6 && colIndex === 9)
+        || (rowIndex === 7 && colIndex === 9)
       ) {
         return 'door'; // Wall on edges
       } else if ( // Define doors
@@ -35,20 +49,20 @@
         return 'wall'; // Specific door positions
       } else if ( // Define room areas
         // Kitchen: Outline
-        (rowIndex === Math.floor(gridHeight * 0.0) && colIndex >= Math.floor(gridWidth * 0.0) && colIndex <= Math.floor(gridWidth * 0.67)) || 
-        (rowIndex === Math.floor(gridHeight * 0.5) && colIndex >= Math.floor(gridWidth * 0.0) && colIndex <= Math.floor(gridWidth * 0.23)) || 
-        (colIndex === Math.floor(gridWidth * 0.0) && rowIndex >= Math.floor(gridHeight * 0.03) && rowIndex <= Math.floor(gridHeight * 0.5)) || 
-        (colIndex === Math.floor(gridWidth * 0.23) && rowIndex >= Math.floor(gridHeight * 0.03) && rowIndex <= Math.floor(gridHeight * 0.5)) ||
+        (rowIndex === 0 && colIndex >= 0 && colIndex <= 26) || 
+        (rowIndex === 15 && colIndex >= 0 && colIndex <= 9) || 
+        (colIndex === 0 && rowIndex >= 1 && rowIndex <= 15) || 
+        (colIndex === 9 && rowIndex >= 1 && rowIndex <= 15) ||
         // Bedroom: Outline
-        (rowIndex === Math.floor(gridHeight * 0.5) && colIndex >= Math.floor(gridWidth * 0.43) && colIndex <= Math.floor(gridWidth * 1.0)) || 
+        (rowIndex === 15 && colIndex >= 17 && colIndex <= 39) || 
         // Bathroom: Outline
-        (rowIndex === Math.floor(gridHeight * 0.5) && colIndex >= Math.floor(gridWidth * 0.23) && colIndex <= Math.floor(gridWidth * 0.43)) ||
-        (rowIndex === Math.floor(gridHeight * 0.8) && colIndex >= Math.floor(gridWidth * 0.23) && colIndex <= Math.floor(gridWidth * 0.43)) ||
-        (colIndex === Math.floor(gridWidth * 0.23) && rowIndex >= Math.floor(gridHeight * 0.5) && rowIndex <= Math.floor(gridHeight * 1.0)) ||
+        (rowIndex === 15 && colIndex >= 9 && colIndex <= 17) ||
+        (rowIndex === 24 && colIndex >= 9 && colIndex <= 17) ||
+        (colIndex === 9 && rowIndex >= 15 && rowIndex <= 29) ||
         // Closet: Outline
-        (rowIndex === Math.floor(gridHeight * 1.0) && colIndex >= Math.floor(gridWidth * 0.43) && colIndex <= Math.floor(gridWidth * 1.1)) ||
-        (colIndex === Math.floor(gridWidth * 0.43) && rowIndex >= Math.floor(gridHeight * 0.83) && rowIndex <= Math.floor(gridHeight * 1.0)) ||
-        (colIndex === Math.floor(gridWidth * 1.1) && rowIndex >= Math.floor(gridHeight * 0.83) && rowIndex <= Math.floor(gridHeight * 1.0))
+        (rowIndex === 29 && colIndex >= 17 && colIndex <= 43) ||
+        (colIndex === 17 && rowIndex >= 25 && rowIndex <= 29) ||
+        (colIndex === 43 && rowIndex >= 25 && rowIndex <= 29)
       ) {
         return 'wall'; // Room areas
       } 
@@ -80,7 +94,7 @@
       room: tempRoom,
       on: tempOn,
       color: tempColor,
-      mode: tempMode,
+      schedule: tempSchedule,
       opacity: tempOpacity
     };
     updateLight(selectedLight.id, lightData);
@@ -96,7 +110,7 @@
     tempRoom = light.room;
     tempOn = light.on;
     tempColor = light.color;
-    tempMode = light.mode;
+    tempSchedule = light.schedule;
     tempOpacity = light.opacity;
     if (light) {
       openEditModal(light);
@@ -111,7 +125,7 @@
       room: 'unassigned',
       on: false,
       color: 'yellow',
-      mode: 'solid',
+      schedule: 'none',
       opacity: 1,
       location_x: row,
       location_y: col
@@ -141,7 +155,7 @@
   {#each grid as row, rowIndex}
     {#each row as cell, colIndex}
       <div class="cell {cell}">
-        {#if cell === 'empty'}
+        {#if cell === 'empty' || cell === 'door'}
           {#each $lights as light (light.id)}
             {#if light.on && Math.abs(light.location_x - rowIndex) + Math.abs(light.location_y - colIndex) <= spreadDistance}
               {#if !grid.slice(Math.min(light.location_x, rowIndex), Math.max(light.location_x, rowIndex) + 1).some(row => row.slice(Math.min(light.location_y, colIndex), Math.max(light.location_y, colIndex) + 1).includes('wall'))}
@@ -155,9 +169,6 @@
         {/if}
         {#if cell === 'wall'}
           <div class="wall"></div>
-        {/if}
-        {#if cell === 'door'}
-          <div class="door-icon"></div>
         {/if}
         {#if $lights.find(light => light.location_x === rowIndex && light.location_y === colIndex)}
           {#each $lights as light (light.id)}
@@ -200,10 +211,10 @@
           </select>
         </label>
         <label>
-          Mode:
-          <select bind:value={tempMode}>
-            {#each $modeOptions as mode}
-              <option value={mode}>{mode}</option>
+          schedule:
+          <select bind:value={tempSchedule}>
+            {#each $scheduleOptions as schedule}
+              <option value={schedule}>{schedule}</option>
             {/each}
           </select>
         </label>
@@ -290,13 +301,6 @@
 
   .wall {
     background-color: black;
-  }
-
-  .door-icon {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: white;
   }
 
   .light {

@@ -3,25 +3,22 @@
         groupOptions,
         run_command,
         colorOptions,
-        lights,
         isCommandRunning,
         currentCommand,
         stop_command,
+        scheduleOptions,
     } from "../stores.js";
 
     // I only used TS here because of an annoying bug with Svelte's type inference
     function getSelectValue(id: string): string {
         return (document.getElementById(id) as HTMLSelectElement).value;
     }
-
-    
     
 </script>
 
 <div class="control_box">
-    <h2 style="position:relative; left: 2.5%;">Controls</h2>
-    <!-- Add button for each control and a dropdown, with label -->
-    <div style="position:relative; left: 2.5%;">
+    <h2 class="voice_controls">Voice Controls</h2>
+    <div class="voice_controls">
         <label for="turnOnLights"> Turn on Lights:</label>
         <button
             id="turnOnLights"
@@ -40,7 +37,7 @@
         <span style="color: {$currentCommand === 'on' ? 'green' : 'red'};">●</span>
     </div>
 
-    <div style="position:relative; left: 2.5%; margin-top: 10px;">
+    <div class="voice_controls">
         <label for="turnOffLights"> Turn off Lights:</label>
         <button
             id="turnOffLights"
@@ -59,7 +56,7 @@
         <span style="color: {$currentCommand === 'off' ? 'green' : 'red'};">●</span>
     </div>
 
-    <div style="position:relative; left: 2.5%; margin-top: 10px;">
+    <div class="voice_controls">
         <label for="changeColorLights"> Change Color:</label>
         <button
             id="changeColorLights"
@@ -85,7 +82,7 @@
         <span style="color: {$currentCommand === 'changeColor' ? 'green' : 'red'};">●</span>
     </div>
 
-    <div style="position:relative; left: 2.5%; margin-top: 10px;">
+    <div class="voice_controls">
         <label for="shiftLights"> Shift Lights:</label>
         <button
             id="shiftLights"
@@ -111,7 +108,7 @@
         <span style="color: {$currentCommand === 'shift' ? 'green' : 'red'};">●</span>
     </div>
 
-    <div style="position:relative; left: 2.5%; margin-top: 10px;">
+    <div class="voice_controls">
         <label for="discoLights"> Disco Mode:</label>
         <button
             id="discoLights"
@@ -133,7 +130,7 @@
         <span style="color: {$currentCommand === 'disco' ? 'green' : 'red'};">●</span>
     </div>
 
-    <div style="position:relative; left: 2.5%; margin-top: 10px;">
+    <div class="voice_controls">
         <label for="blinkLights"> Blink Lights:</label>
         <button
             id="blinkLights"
@@ -155,7 +152,7 @@
         <span style="color: {$currentCommand === 'blink' ? 'green' : 'red'};">●</span>
     </div>
 
-    <div style="position:relative; left: 2.5%; margin-top: 10px;">
+    <div class="voice_controls">
         <label for="fadeLights"> Fade Lights:</label>
         <button
             id="fadeLights"
@@ -177,7 +174,7 @@
         <span style="color: {$currentCommand === 'fade' ? 'green' : 'red'};">●</span>
     </div>
 
-    <div style="position:relative; left: 2.5%; margin-top: 10px;">
+    <div class="voice_controls">
         <label for="rainbowLights"> Rainbow Mode:</label>
         <button
             id="rainbowLights"
@@ -197,6 +194,31 @@
             {/each}
         </select>
         <span style="color: {$currentCommand === 'rainbow' ? 'green' : 'red'};">●</span>
+    </div>
+
+    <!--  -->
+    <h2 class="schedule_controls">Schedule Controls</h2>
+    <div class="schedule_controls">
+        <label for="dayLights"> Simulate Daytime:</label>
+        <button
+            id="dayLights"
+            on:click={() =>
+                run_command(
+                    "day"
+                )}
+            disabled={$isCommandRunning}>Run</button>
+        <span style="color: {$currentCommand === 'day' ? 'green' : 'red'};">●</span>
+    </div>
+    <div class="schedule_controls">
+        <label for="nightLights"> Simulate Nighttime:</label>
+        <button
+            id="nightLights"
+            on:click={() =>
+                run_command(
+                    "night"
+                )}
+            disabled={$isCommandRunning}>Run</button>
+        <span style="color: {$currentCommand === 'night' ? 'green' : 'red'};">●</span>
     </div>
 </div>
 
@@ -230,5 +252,15 @@
 
         background-color: white;
         box-shadow: 5px 5px 5px rgb(54, 54, 54, 0.5);
+    }
+    .voice_controls {
+        position: relative;
+        left: 2.5%;
+        margin-top: 10px;
+    }
+    .schedule_controls {
+        position: relative;
+        left: 2.5%;
+        margin-top: 10px;
     }
 </style>
