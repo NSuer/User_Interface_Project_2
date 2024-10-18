@@ -1,4 +1,3 @@
-@ -0,0 +1,55 @@
 <script>
    let showControlInfo = false;
 
@@ -15,7 +14,7 @@
 
    {#if showControlInfo}
       <div class="info-controls-box">
-         <p>This control panel simulates voice controls.</p>
+         <p>This control panel simulates voice controls. Click the run button next to a voice control to see the effect of the corresponding control. Where applicable, changing the group or color for a setting will change what lights are affected by the effect or the color of the effect.</p>
       </div>
    {/if}
 </div>

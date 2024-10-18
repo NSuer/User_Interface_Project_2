@@ -9,6 +9,8 @@
         scheduleOptions,
     } from "../stores.js";
 
+    import InfoControls from "./InfoControls.svelte";
+
     // I only used TS here because of an annoying bug with Svelte's type inference
     function getSelectValue(id: string): string {
         return (document.getElementById(id) as HTMLSelectElement).value;
@@ -232,9 +234,10 @@
                 )}
             disabled={$isCommandRunning}>Run</button>
     </div>
-
     <h2 class="voice_controls">Graphic of where this UI would reside on the physical smart object</h2>
     <img src="public/Real_interface.png" alt="Real Interface" width="50%" height="50%">
+    <InfoControls />
+
     <footer>William Braun, Owen Richards, Nathan Suer, Sam Weese</footer>
 </div>
 
