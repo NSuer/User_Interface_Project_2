@@ -53,7 +53,7 @@
       margin-bottom: 1.5rem;
       border-radius: 0.5rem;
       font-size: 1rem;
-      max-width: 90%;
+      max-width: 97%;
       margin-left: 0.5rem;
    }
 </style>
