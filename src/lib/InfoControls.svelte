@@ -1,4 +1,3 @@
-@ -0,0 +1,55 @@
 <script>
    let showControlInfo = false;
 

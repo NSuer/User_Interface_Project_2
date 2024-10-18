@@ -9,6 +9,8 @@
         scheduleOptions,
     } from "../stores.js";
 
+    import InfoControls from "./InfoControls.svelte";
+
     // I only used TS here because of an annoying bug with Svelte's type inference
     function getSelectValue(id: string): string {
         return (document.getElementById(id) as HTMLSelectElement).value;
@@ -232,6 +234,7 @@
                 )}
             disabled={$isCommandRunning}>Run</button>
     </div>
+    <InfoControls />
     <footer>William Braun, Owen Richards, Nathan Suer, Sam Weese</footer>
 </div>
 
