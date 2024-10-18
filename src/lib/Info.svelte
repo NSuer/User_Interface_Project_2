@@ -29,8 +29,8 @@
    .info-button {
       margin-top: 0.5rem;         
       padding: 0.5rem;          
-      background-color: #007bff;   
-      color: white;                 
+      background-color: rgb(251, 203, 51);   
+      color: black;                 
       border: none;                  
       border-radius: 0.5rem;         
       cursor: pointer;               
