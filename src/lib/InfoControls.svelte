@@ -43,8 +43,7 @@
    .info-controls-box {
       background-color: #f8f9fa;     
       padding: 0.25rem;                 
-      border: 0.1rem solid #ddd;     
-      margin-bottom: 1.5rem;         
+      border: 0.1rem solid #ddd;             
       border-radius: 0.5rem;        
       font-size: 1rem;               
       max-width: 90%; 
