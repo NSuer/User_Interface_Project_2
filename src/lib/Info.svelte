@@ -42,7 +42,7 @@
       border-radius: 10px;
       cursor: pointer;
       font-size: 1rem;
-      width: 100%;
+      width: 97%;
       bottom: 7px;
    }
 
