@@ -169,6 +169,8 @@ Navigation and/or controls are toggleable to leave room for the main grid.
 
 ## Explanation of implementation
 TODO
+- TODO: explain list of the controls you are including in this UI, the indicators you want display, and how these connect to the design goals you captured.
+- TODO: Levels 2-4 and beyond what we did and how we did it 
 
 ## AI Use
 - I used the following prompt "Using svelte and js, make me a component that will allow me to design floorplans for houses. All floorplans are one floor. Have options for doors, lights, and walls" to get the basic room maker. It was functional. This was useful but only will be used as a basis for future work. Here is an image of what was made
