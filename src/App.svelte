@@ -26,21 +26,9 @@
 </script>
 
 <body>
-  <header>
-    <div class="titleAndImg">
-      <h1 class="title">The Smart Lightbulb</h1>
-      <img
-        src="src/assets/powered-bulb.png"
-        width="105px"
-        height="105px"
-        alt=""
-      />
-    </div>
-  </header>
-  <div class="spacer" style="bottom: 50px;"></div>
   <main>
       <div class="UserInterface">
-        <h2>Living room light switch</h2>
+        <h2 style="padding: 0px;">Living room light switch</h2>
         <div class="grid">
           <div class="cell">
             <FloorPlan />
@@ -136,42 +124,17 @@
     height: 100%;
   }
 
-  .title {
-    position: relative;
-    font-size: 4em;
-    padding: 0;
-  }
-
-  .titleAndImg {
-    position: relative;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-
-    bottom: 20px;
-  }
-
-  .spacer {
-    position: relative;
-    height: 0.1%;
-    bottom: 10px;
-    left: 2.5%;
-    width: 95%;
-
-    background-color: rgba(19, 19, 19, 0.3);
-  }
-
   main {
     position: relative;
 
     width: 90%;
     height: 80%;
+    top: 10%;
     left: 5%;
 
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 2%;
   }
 
@@ -187,6 +150,8 @@
     align-items: center;
     border: 2px solid rgb(0, 0, 0, 0.6);
     box-shadow: 5px 5px 5px rgb(54, 54, 54, 0.5);
+    background-color: white;
+    border-radius: 20px;
   }
 
   .controls {
@@ -232,7 +197,6 @@
     height: 100%;
 
     border: 2px solid rgb(0, 0, 0, 0.6);
-    box-shadow: 5px 5px 5px rgb(54, 54, 54, 0.5);
 
     display: grid;
     grid-template-columns: 70% 30%;
