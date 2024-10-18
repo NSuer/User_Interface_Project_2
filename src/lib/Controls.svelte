@@ -1,5 +1,4 @@
-<script>
-    // @ts-nocheck
+<script lang="ts">
     import {
         groupOptions,
         run_command,
@@ -10,6 +9,12 @@
         stop_command,
     } from "../stores.js";
 
+    // I only used TS here because of an annoying bug with Svelte's type inference
+    function getSelectValue(id: string): string {
+        return (document.getElementById(id) as HTMLSelectElement).value;
+    }
+
+    
     
 </script>
 
@@ -23,7 +28,7 @@
             on:click={() =>
                 run_command(
                     "on",
-                    document.getElementById("groupSelect_on").value,
+                    getSelectValue("groupSelect_on"),
                 )}
             disabled={$isCommandRunning}>Run</button>
         <label for="groupSelect_on">Group:</label>
@@ -42,7 +47,7 @@
             on:click={() =>
                 run_command(
                     "off",
-                    document.getElementById("groupSelect_off").value,
+                    getSelectValue("groupSelect_off"),
                 )}
             disabled={$isCommandRunning}>Run</button>
         <label for="groupSelect_off">Group:</label>
@@ -61,8 +66,8 @@
             on:click={() =>
                 run_command(
                     "changeColor",
-                    document.getElementById("groupSelect_changeColor").value,
-                    document.getElementById("colorSelect_changeColor").value,
+                    getSelectValue("groupSelect_changeColor"),
+                    getSelectValue("colorSelect_changeColor")
                 )}
             disabled={$isCommandRunning}>Run</button>
         <label for="groupSelect_changeColor">Group:</label>
@@ -87,8 +92,8 @@
             on:click={() =>
                 run_command(
                     "shift",
-                    document.getElementById("groupSelect_shift").value,
-                    document.getElementById("colorSelect_shift").value,
+                    getSelectValue("groupSelect_shift"),
+                    getSelectValue("colorSelect_shift"),
                 )}
             disabled={$isCommandRunning}>Run</button>
         <label for="groupSelect_shift">Group:</label>
@@ -113,11 +118,11 @@
             on:click={() =>
                 run_command(
                     "disco",
-                    document.getElementById("groupSelect_disco").value,
+                    getSelectValue("groupSelect_disco")
                 )}
             disabled={$isCommandRunning}>Run</button>
         <button
-            on:click={() => stop_command("disco")}
+            on:click={() => stop_command()}
             disabled={!$isCommandRunning || $currentCommand !== 'disco'}>Stop</button>
         <label for="groupSelect_disco">Group:</label>
         <select id="groupSelect_disco">
@@ -135,11 +140,11 @@
             on:click={() =>
                 run_command(
                     "blink",
-                    document.getElementById("groupSelect_blink").value,
+                    getSelectValue("groupSelect_blink"),
                 )}
             disabled={$isCommandRunning}>Run</button>
         <button
-            on:click={() => stop_command("blink")}
+            on:click={() => stop_command()}
             disabled={!$isCommandRunning || $currentCommand !== 'blink'}>Stop</button>
         <label for="groupSelect_blink">Group:</label>
         <select id="groupSelect_blink">
@@ -157,11 +162,11 @@
             on:click={() =>
                 run_command(
                     "fade",
-                    document.getElementById("groupSelect_fade").value,
+                    getSelectValue("groupSelect_fade"),
                 )}
             disabled={$isCommandRunning}>Run</button>
         <button
-            on:click={() => stop_command("fade")}
+            on:click={() => stop_command()}
             disabled={!$isCommandRunning || $currentCommand !== 'fade'}>Stop</button>
         <label for="groupSelect_fade">Group:</label>
         <select id="groupSelect_fade">
@@ -179,11 +184,11 @@
             on:click={() =>
                 run_command(
                     "rainbow",
-                    document.getElementById("groupSelect_rainbow").value,
+                    getSelectValue("groupSelect_rainbow"),
                 )}
             disabled={$isCommandRunning}>Run</button>
         <button
-            on:click={() => stop_command("rainbow")}
+            on:click={() => stop_command()}
             disabled={!$isCommandRunning || $currentCommand !== 'rainbow'}>Stop</button>
         <label for="groupSelect_rainbow">Group:</label>
         <select id="groupSelect_rainbow">

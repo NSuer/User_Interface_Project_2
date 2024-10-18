@@ -8,7 +8,7 @@
   -  Create a list of the controls you are including in this UI, the indicators you want display, and how these connect to the design goals you captured. (Label level 0)
   -  Demo video
 - Levels 2-4 and beyond: 
-  - fake voice commands - Owen
+  - fake voice commands - Nate
   - adding and editing lights - Nate
   - Scenarios 
   - Day Play through
