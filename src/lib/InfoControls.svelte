@@ -7,7 +7,7 @@
  </script>
 
 
-<div class="info-controls-container">
+<div class="info-controls-container" style="flex-direction: column;" >
    <button class="info-controls-button" on:click={toggleControlInfo}>
       {showControlInfo ? 'Hide Info' : 'Show Info'}
    </button>
@@ -24,12 +24,11 @@
    .info-controls-container {
       display: flex;
       align-items: flex-start;
-      margin-top: 1rem;
       width: 100%;
    }
 
    .info-controls-button {
-      margin-top: 0.5rem;
+      position: relative;
       padding: 0.5rem;
       background-color: rgb(251, 203, 51);   
       color: black;
@@ -37,7 +36,9 @@
       border-radius: 10px;
       cursor: pointer;
       font-size: 1rem;
-      width: 20%;
+      width: 96%;
+      margin-left: 0.5rem;
+      bottom: 7px;
    }
 
    .info-controls-box {

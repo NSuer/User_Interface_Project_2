@@ -34,7 +34,7 @@
       position: relative;
 
       margin-top: 0.5rem;
-      margin-left: 15px;
+      margin-left: 0.5rem;
       padding: 0.5rem;
       background-color: rgb(251, 203, 51);
       color: black;
@@ -53,7 +53,7 @@
       margin-bottom: 1.5rem;
       border-radius: 0.5rem;
       font-size: 1rem;
-      max-width: 97%;
+      width: 97%;
       margin-left: 0.5rem;
    }
 </style>
