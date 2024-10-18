@@ -9,6 +9,7 @@ import { get } from 'svelte/store';
 // Options for properties in the Light class
 
 export let isCommandRunning = writable(false);
+export let currentCommand = writable("");
 
 export let colorOptions = writable(["red", "blue", "green", "yellow", "purple", "orange", "brown", "grey"]);
 export let modeOptions = writable(["solid", "blink", "fade"]);
@@ -166,6 +167,9 @@ export function run_command(command, group, color) {
     // Find all lights in the group(room) and run the command on them
     // If group is "all" then run the command on all lights
 
+    currentCommand.set(command);
+    isCommandRunning.set(true);
+
     console.log("Running command: " + command + " on group: " + group + " with color: " + color);
 
     // Make an array of all the lights in the group
@@ -176,9 +180,11 @@ export function run_command(command, group, color) {
     if (command === "on") {
         groupLights.forEach(light => light.on = true);
         resetLights(groupLights);
+        stop_command();
     } else if (command === "off") {
         groupLights.forEach(light => light.on = false);
         updateLightsArray(groupLights)
+        stop_command();
     } else if (command === "disco") {
         DiscoTime(groupLights);
     } else if (command === "blink") {
@@ -189,11 +195,17 @@ export function run_command(command, group, color) {
         RainbowTime(groupLights);
     } else if (command === "shift") {
         slowShiftColor(groupLights, color, 5);
-        // groupLights.forEach(light => light.shift(color, 5));
+        stop_command();
     } else if (command === "changeColor") {
         groupLights.forEach(light => light.user_set_color = color);
         resetLights(groupLights);
+        stop_command();
     }
+}
+
+export function stop_command() {
+    currentCommand.set("");
+    isCommandRunning.set(false);
 }
 
 function updateLightsArray(updatedLights) {
@@ -218,6 +230,7 @@ export function DiscoTime(lightsArray) {
         if (!get(isCommandRunning)) {
             clearInterval(interval1);
             resetLights(lightsArray);
+            stop_command();
             return;
         }
         for (let colorIndex = 0; colorIndex < DiscoColors.length; colorIndex++) {
@@ -225,6 +238,7 @@ export function DiscoTime(lightsArray) {
                 if (!get(isCommandRunning)) {
                     clearInterval(interval2);
                     resetLights(lightsArray);
+                    stop_command();
                     return;
                 }
                 for (let opacity = 0; opacity <= 1; opacity += 0.1) {
@@ -246,6 +260,7 @@ function BlinkTime(lightsArray) {
         if (!get(isCommandRunning)) {
             clearInterval(interval);
             resetLights(lightsArray);
+            stop_command();
             return;
         }
         lightsArray = lightsArray.map(element => {
@@ -267,6 +282,7 @@ function FadeTime(lightsArray) {
         if (!get(isCommandRunning)) {
             clearInterval(interval);
             resetLights(lightsArray);
+            stop_command();
             return;
         }
         lightsArray = lightsArray.map(element => {
@@ -291,6 +307,7 @@ function RainbowTime(lightsArray) {
         if (!get(isCommandRunning)) {
             clearInterval(interval);
             resetLights(lightsArray);
+            stop_command();
             return;
         }
         if (lightIndex < lightsArray.length) {

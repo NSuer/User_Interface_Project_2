@@ -5,7 +5,12 @@
         run_command,
         colorOptions,
         lights,
+        isCommandRunning,
+        currentCommand,
+        stop_command,
     } from "../stores.js";
+
+    
 </script>
 
 <div class="control_box">
@@ -19,14 +24,15 @@
                 run_command(
                     "on",
                     document.getElementById("groupSelect_on").value,
-                )}>Run</button
-        >
+                )}
+            disabled={$isCommandRunning}>Run</button>
         <label for="groupSelect_on">Group:</label>
         <select id="groupSelect_on">
             {#each $groupOptions as group}
                 <option value={group}>{group}</option>
             {/each}
         </select>
+        <span style="color: {$currentCommand === 'on' ? 'green' : 'red'};">●</span>
     </div>
 
     <div style="position:relative; left: 2.5%; margin-top: 10px;">
@@ -37,111 +43,15 @@
                 run_command(
                     "off",
                     document.getElementById("groupSelect_off").value,
-                )}>Run</button
-        >
+                )}
+            disabled={$isCommandRunning}>Run</button>
         <label for="groupSelect_off">Group:</label>
         <select id="groupSelect_off">
             {#each $groupOptions as group}
                 <option value={group}>{group}</option>
             {/each}
         </select>
-    </div>
-
-    <div style="position:relative; left: 2.5%; margin-top: 10px;">
-        <label for="discoLights"> Disco Mode:</label>
-        <button
-            id="discoLights"
-            on:click={() =>
-                run_command(
-                    "disco",
-                    document.getElementById("groupSelect_disco").value,
-                )}>Run</button
-        >
-        <label for="groupSelect_disco">Group:</label>
-        <select id="groupSelect_disco">
-            {#each $groupOptions as group}
-                <option value={group}>{group}</option>
-            {/each}
-        </select>
-    </div>
-
-    <div style="position:relative; left: 2.5%; margin-top: 10px;">
-        <label for="blinkLights"> Blink Lights:</label>
-        <button
-            id="blinkLights"
-            on:click={() =>
-                run_command(
-                    "blink",
-                    document.getElementById("groupSelect_blink").value,
-                )}>Run</button
-        >
-        <label for="groupSelect_blink">Group:</label>
-        <select id="groupSelect_blink">
-            {#each $groupOptions as group}
-                <option value={group}>{group}</option>
-            {/each}
-        </select>
-    </div>
-
-    <div style="position:relative; left: 2.5%; margin-top: 10px;">
-        <label for="fadeLights"> Fade Lights:</label>
-        <button
-            id="fadeLights"
-            on:click={() =>
-                run_command(
-                    "fade",
-                    document.getElementById("groupSelect_fade").value,
-                )}>Run</button
-        >
-        <label for="groupSelect_fade">Group:</label>
-        <select id="groupSelect_fade">
-            {#each $groupOptions as group}
-                <option value={group}>{group}</option>
-            {/each}
-        </select>
-    </div>
-
-    <div style="position:relative; left: 2.5%; margin-top: 10px;">
-        <label for="rainbowLights"> Rainbow Mode:</label>
-        <button
-            id="rainbowLights"
-            on:click={() =>
-                run_command(
-                    "rainbow",
-                    document.getElementById("groupSelect_rainbow").value,
-                )}>Run</button
-        >
-        <label for="groupSelect_rainbow">Group:</label>
-        <select id="groupSelect_rainbow">
-            {#each $groupOptions as group}
-                <option value={group}>{group}</option>
-            {/each}
-        </select>
-    </div>
-
-    <div style="position:relative; left: 2.5%; margin-top: 10px;">
-        <label for="shiftLights"> Shift Lights:</label>
-        <button
-            id="shiftLights"
-            on:click={() =>
-                run_command(
-                    "shift",
-                    document.getElementById("groupSelect_shift").value,
-                    document.getElementById("colorSelect_shift").value,
-                )}>Run</button
-        >
-        <label for="groupSelect_shift">Group:</label>
-        <select id="groupSelect_shift">
-            {#each $groupOptions as group}
-                <option value={group}>{group}</option>
-            {/each}
-        </select>
-        <label for="colorSelect_shift">Color:</label>
-        <select id="colorSelect_shift">
-            {#each $colorOptions as color}
-                <option value={color}>{color}</option>
-            {/each}
-        </select>
+        <span style="color: {$currentCommand === 'off' ? 'green' : 'red'};">●</span>
     </div>
 
     <div style="position:relative; left: 2.5%; margin-top: 10px;">
@@ -153,8 +63,8 @@
                     "changeColor",
                     document.getElementById("groupSelect_changeColor").value,
                     document.getElementById("colorSelect_changeColor").value,
-                )}>Run</button
-        >
+                )}
+            disabled={$isCommandRunning}>Run</button>
         <label for="groupSelect_changeColor">Group:</label>
         <select id="groupSelect_changeColor">
             {#each $groupOptions as group}
@@ -167,6 +77,121 @@
                 <option value={color}>{color}</option>
             {/each}
         </select>
+        <span style="color: {$currentCommand === 'changeColor' ? 'green' : 'red'};">●</span>
+    </div>
+
+    <div style="position:relative; left: 2.5%; margin-top: 10px;">
+        <label for="shiftLights"> Shift Lights:</label>
+        <button
+            id="shiftLights"
+            on:click={() =>
+                run_command(
+                    "shift",
+                    document.getElementById("groupSelect_shift").value,
+                    document.getElementById("colorSelect_shift").value,
+                )}
+            disabled={$isCommandRunning}>Run</button>
+        <label for="groupSelect_shift">Group:</label>
+        <select id="groupSelect_shift">
+            {#each $groupOptions as group}
+                <option value={group}>{group}</option>
+            {/each}
+        </select>
+        <label for="colorSelect_shift">Color:</label>
+        <select id="colorSelect_shift">
+            {#each $colorOptions as color}
+                <option value={color}>{color}</option>
+            {/each}
+        </select>
+        <span style="color: {$currentCommand === 'shift' ? 'green' : 'red'};">●</span>
+    </div>
+
+    <div style="position:relative; left: 2.5%; margin-top: 10px;">
+        <label for="discoLights"> Disco Mode:</label>
+        <button
+            id="discoLights"
+            on:click={() =>
+                run_command(
+                    "disco",
+                    document.getElementById("groupSelect_disco").value,
+                )}
+            disabled={$isCommandRunning}>Run</button>
+        <button
+            on:click={() => stop_command("disco")}
+            disabled={!$isCommandRunning || $currentCommand !== 'disco'}>Stop</button>
+        <label for="groupSelect_disco">Group:</label>
+        <select id="groupSelect_disco">
+            {#each $groupOptions as group}
+                <option value={group}>{group}</option>
+            {/each}
+        </select>
+        <span style="color: {$currentCommand === 'disco' ? 'green' : 'red'};">●</span>
+    </div>
+
+    <div style="position:relative; left: 2.5%; margin-top: 10px;">
+        <label for="blinkLights"> Blink Lights:</label>
+        <button
+            id="blinkLights"
+            on:click={() =>
+                run_command(
+                    "blink",
+                    document.getElementById("groupSelect_blink").value,
+                )}
+            disabled={$isCommandRunning}>Run</button>
+        <button
+            on:click={() => stop_command("blink")}
+            disabled={!$isCommandRunning || $currentCommand !== 'blink'}>Stop</button>
+        <label for="groupSelect_blink">Group:</label>
+        <select id="groupSelect_blink">
+            {#each $groupOptions as group}
+                <option value={group}>{group}</option>
+            {/each}
+        </select>
+        <span style="color: {$currentCommand === 'blink' ? 'green' : 'red'};">●</span>
+    </div>
+
+    <div style="position:relative; left: 2.5%; margin-top: 10px;">
+        <label for="fadeLights"> Fade Lights:</label>
+        <button
+            id="fadeLights"
+            on:click={() =>
+                run_command(
+                    "fade",
+                    document.getElementById("groupSelect_fade").value,
+                )}
+            disabled={$isCommandRunning}>Run</button>
+        <button
+            on:click={() => stop_command("fade")}
+            disabled={!$isCommandRunning || $currentCommand !== 'fade'}>Stop</button>
+        <label for="groupSelect_fade">Group:</label>
+        <select id="groupSelect_fade">
+            {#each $groupOptions as group}
+                <option value={group}>{group}</option>
+            {/each}
+        </select>
+        <span style="color: {$currentCommand === 'fade' ? 'green' : 'red'};">●</span>
+    </div>
+
+    <div style="position:relative; left: 2.5%; margin-top: 10px;">
+        <label for="rainbowLights"> Rainbow Mode:</label>
+        <button
+            id="rainbowLights"
+            on:click={() =>
+                run_command(
+                    "rainbow",
+                    document.getElementById("groupSelect_rainbow").value,
+                )}
+            disabled={$isCommandRunning}>Run</button>
+        <button
+            on:click={() => stop_command("rainbow")}
+            disabled={!$isCommandRunning || $currentCommand !== 'rainbow'}>Stop</button>
+        <label for="groupSelect_rainbow">Group:</label>
+        <select id="groupSelect_rainbow">
+            {#each $groupOptions as group}
+                <option value={group}>{group}</option>
+            {/each}
+        </select>
+        <span style="color: {$currentCommand === 'rainbow' ? 'green' : 'red'};">●</span>
     </div>
 </div>
 
