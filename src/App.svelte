@@ -20,7 +20,7 @@
   function listenForCommand() {
     // This will just create a popup saying to use controls on the right
     alert(
-      "Professor said we didn't actually need this implemented. Use the fake voice controls on the right to send a command.",
+      "Professor said we didn't actually need this implemented. Use the fake voice controls on the right to send a command. This UI would be completely replaced by phrases mapping to voice commands.",
     );
   }
 </script>

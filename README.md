@@ -154,7 +154,7 @@ Navigation and/or controls are toggleable to leave room for the main grid.
 
 #### Hybrid sketching to illustrate the integration of the interface on a real object
 - So we're designing a smart lightbulb, a user wants to control the lightbulb via an app.
-- But sice it needs to be physical and digitize something that is usually physical, it would be good to replace the light switches with our interface.
+- But since it needs to be physical and digitize something that is usually physical, it would be good to replace the light switches with our interface.
 - For our hybird sketch I will be integrating our smart lightbulb interface to replace a light switch.
 - This is my puppy Millie.
 ![Hybrid Sketch](src/pictures/HybridSketch.jpg)
@@ -189,12 +189,18 @@ TODO
 - No project is ever fully done. What would you do next?  This is also a place to discuss the work you attempted but could not fully complete before the project deadline- include screenshots to illustrate and document your progress. 
 ### User Interface
 
+For the user interface, there is a couple of things we would like to overhaul. First, the vocal commands should have a UI to accompany it, and allow the user to use non-vocal commands to accessing functionality such as disco mode, rainbow, etc.
+
 ### Volumetric Lighting Simulation
+
+Our lighting simulation is completely grid based. This lacks the definite detail we would like to have for light rays to go arounds wall. We currently only check in the x/y direction, casting a ray in the positive, negative xy directions. Instead, we should cast rays from each light and then use that calculation to draw our lights. This would be a new canvas object which would be shipped as web assembly for the speed increases.
 
 ### Firmware Controllers
 
-### Vocal Interface
+It would be way cooler if this worked with real lightbulbs... Well we could make this happen! A number of wifi lightbulbs do have their own apis, we have also the option of writing a controller for any open source software!
 
+### Vocal Interface
+Real time vocal analysis and word parsing is extremely expensive. Realistically, we would need to ship this as web assembly. It simply has too many performance issues currently.
 
 ## Demo Video
 - The easiest way to record this is with a screen capture tool, which also captures audio- such as Quicktime.  Use a voiceover to explain your application.  Include the name of the project, your name, the project components, and how your application works.  You can present it on your webpage or on youtube, but it must be linked on your webpage. 
