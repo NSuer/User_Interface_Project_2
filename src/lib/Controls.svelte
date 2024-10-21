@@ -237,7 +237,7 @@
                 </div>
             </section>
             <div style="display: flex; flex-direction: column; align-items: center; width: 34%;">
-                <h4 style="position: relative; top: 12px;">Real-Wolrd Implementation</h4>
+                <h4 style="position: relative; top: 12px;">Real-World Implementation</h4>
                 <img src="src/pictures/Real_interface.png" alt="Real Interface" width="90%" height="100%">
             </div>
         </div>
