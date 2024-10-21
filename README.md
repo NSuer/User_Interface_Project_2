@@ -22,8 +22,10 @@
 
 # Documentation
 Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
+
 ## Description the project
-TODO
+
+The Home Lighting Simulator 2024 is a control interface for a multiple wifi lightbulbs used in parallel. It displays to the user individual lightbulbs and their sphere of influence in a home. It allows the users to remotely control lights, either as a group or individually.
 
 ## Design Work
 
@@ -167,14 +169,24 @@ Navigation and/or controls are toggleable to leave room for the main grid.
 - Include plenty of screenshots to illustrate your interface and different actions users can perform within it
 ### Floor Layout
 
-#### Rooms
+The Home Lighting Simulator uses a floor layout to display each of the bulbs. Each room is a grouping of lightbulbs, and can be controlled remotely using the Simulator. 
 
-#### Vocal Controls
+### Vocal Controls
 
-#### 
-- TODO
+The Home Lighting Simulator uses a series of vocal controls (not implemented for this project) to allow the user to turn on or off lights, based upon the name of the light. It has a number of options, including Disco mode, blinking, and hue shifting!
+
+### Light Control
+
+Clicking on a light opens up the light control menu. The menu allows individual control of each light, from changing the room group to color, schedule, and brightness. 
+
 
 ## Explanation of implementation
+
+We have 3 main components of the UI: the map, the light control menu, and the vocal/group control menu. 
+
+### The Map
+
+The map is a grid which contains 4 types of tiles; lights, background, doors, walls. It 
 TODO
 - TODO: explain list of the controls you are including in this UI, the indicators you want display, and how these connect to the design goals you captured.
 - TODO: Levels 2-4 and beyond what we did and how we did it 
