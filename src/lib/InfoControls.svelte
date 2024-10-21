@@ -36,7 +36,7 @@
       border-radius: 10px;
       cursor: pointer;
       font-size: 1rem;
-      width: 96%;
+      width: 97%;
       margin-left: 0.5rem;
       bottom: 7px;
    }
@@ -47,7 +47,7 @@
       border: 0.1rem solid #ddd;             
       border-radius: 0.5rem;        
       font-size: 1rem;               
-      max-width: 90%; 
+      width: 96%; 
       margin-left: 0.5rem;              
    }
 

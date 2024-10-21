@@ -53,7 +53,7 @@
       margin-bottom: 1.5rem;
       border-radius: 0.5rem;
       font-size: 1rem;
-      width: 97%;
+      width: 96%;
       margin-left: 0.5rem;
    }
 </style>
