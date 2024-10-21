@@ -54,9 +54,10 @@
             </button>
             <button class="command-button"  on:click={listenForCommand}>
                 <svg 
+                class="test"
                 fill="#000000"
-                height="200px"
-                width= "100%"
+                height="70px"
+                width= "70%"
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
@@ -79,7 +80,7 @@
                   </g>
                 </g></svg
                 >
-                <span style="width:100%">Voice Command</span>
+                <span style="position: relative; width:100%; bottom: 3px;">Voice Command</span>
             </button>
           </div>
         </div>
@@ -127,10 +128,10 @@
   main {
     position: relative;
 
-    width: 90%;
+    width: 95%;
     height: 80%;
     top: 10%;
-    left: 5%;
+    left: 2.5%;
 
     display: flex;
     flex-direction: row;
@@ -141,7 +142,7 @@
   .UserInterface {
     position: relative;
 
-    width: 100%;
+    width: 70%;
     height: 100%;
 
     display: flex;
@@ -158,16 +159,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
     margin-top: 20px;
     gap: 20px;
+    margin-left: 0;
   }
 
   .power-button {
     background-color: var(--yellow);
     border: none;
     border-radius: 50%;
-    width: 80%;
-    height: 45%;
+    width: 60%;
+    height: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -179,8 +182,8 @@
     background-color: var(--yellow);
     border: none;
     border-radius: 50%;
-    width: 80%;
-    height: 45%;
+    width: 60%;
+    height: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -199,6 +202,12 @@
     border: 2px solid rgb(0, 0, 0, 0.6);
 
     display: grid;
-    grid-template-columns: 70% 30%;
+    grid-template-columns: 80% 20%;
+  }
+
+  .test {
+    position: relative;
+    left: 16px;
+    top: 10px;
   }
 </style>
