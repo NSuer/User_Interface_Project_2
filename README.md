@@ -2,8 +2,6 @@
 
 # TO-DO
 - A title for the project, your names, and a link to your project write up. (In the GUI)
-- A graphic to indicate where this UI would reside on the physical smart object. (In the GUI)
-- An info button that, when clicked, explains the controls for simulating the object's use. (In the GUI) - William
 - In the documentation
   -  Create a list of the controls you are including in this UI, the indicators you want display, and how these connect to the design goals you captured. (Label level 0)
   -  Demo video
@@ -12,9 +10,6 @@
   - adding and editing lights - Nate
   - Scenarios - Nate
   - Day Play through - Nate
-## Sam is working on (in order):
-- adding lightbulb icon
-- light fading and ray tracing for displaying light effects on the grid
 
 # Helpful Commands
 - npm run deploy - This will build and deploy the github page public website
@@ -186,10 +181,13 @@ We have 3 main components of the UI: the map, the light control menu, and the vo
 
 ### The Map
 
-The map is a grid which contains 4 types of tiles; lights, background, doors, walls. It 
-TODO
-- TODO: explain list of the controls you are including in this UI, the indicators you want display, and how these connect to the design goals you captured.
-- TODO: Levels 2-4 and beyond what we did and how we did it 
+The map is a grid which contains 4 types of tiles; lights, background, doors, walls. Clicking on a square allows the user to modify the light options. We used a svelte generated array for cols and rows, each cell being a square in the room. We chose this as it is extremely visual for the user, and is intuitive.
+
+
+The popup with controls is a modal, which allows us to have the user modify each light individually, or add it to a group. This allows the modulatrity requested by our users.
+
+
+Our fake voice commands we implemented as an additional panel. Shipping real time vocal processing is a processing expensive task, and would have taken longer than the project would allow. The panel adds on/off options for groups, multiple pre-programmed modes, and a scheduler for day or night time. 
 
 ## AI Use
 - I used the following prompt "Using svelte and js, make me a component that will allow me to design floorplans for houses. All floorplans are one floor. Have options for doors, lights, and walls" to get the basic room maker. It was functional. This was useful but only will be used as a basis for future work. Here is an image of what was made
