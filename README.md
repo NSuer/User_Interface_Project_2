@@ -164,6 +164,7 @@ The Home Lighting Simulator uses a series of vocal controls (not implemented for
 ### Light Control
 
 Clicking on a light opens up the light control menu. This menu allows individual control of each light, from changing the room group to color, schedule, and brightness. 
+
 ![Light Menu](src/pictures/light-menu.jpg)
 
 ## Explanation of implementation
