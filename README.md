@@ -157,7 +157,7 @@ The Home Lighting Simulator uses a floor layout to display each of the bulbs. Ea
 
 ### Vocal Controls
 
-The Home Lighting Simulator uses a series of vocal controls (not implemented for this project) to allow the user to turn lights on and off, based on the name of the light. There are a number of options, including disco mode, blinking, and hue shifting!
+The Home Lighting Simulator uses a series of vocal controls (not implemented for this project) to allow the user to turn lights on and offbased on the names of the lights. There are a number of options, including disco mode, blinking, and hue shifting!
 
 ### Light Control
 
