@@ -154,15 +154,17 @@ Navigation and/or controls are toggleable to leave room for the main grid.
 ### Floor Layout
 
 The Home Lighting Simulator uses a floor layout to display each of the bulbs. Each room is a grouping of lightbulbs and can be controlled remotely using the Simulator. 
+![Floor Layout](src/pictures/floorplan.jpg)
 
 ### Vocal Controls
 
 The Home Lighting Simulator uses a series of vocal controls (not implemented for this project) to allow the user to turn lights on and offbased on the names of the lights. There are a number of options, including disco mode, blinking, and hue shifting!
+![Voice Controls](src/pictures/voice-controls.jpg)
 
 ### Light Control
 
 Clicking on a light opens up the light control menu. This menu allows individual control of each light, from changing the room group to color, schedule, and brightness. 
-
+![Light Menu](src/pictures/light-menu.jpg)
 
 ## Explanation of implementation
 
