@@ -217,8 +217,8 @@ Real time vocal analysis and word parsing is extremely expensive. Realistically,
 - TODO -> Sam has an alarm set for 9pm, Sunday to record it.
 
 ## Link to source code and public hosted application
-- link to your source code on github and a link to the publicly hosted application
-- TODO -> We should probably all fork this
+- https://github.com/NSuer/User_Interface_Project_2
+- https://nsuer.github.io/User_Interface_Project_2/
 
 # Project 2 check-in- collaboration plan
 
