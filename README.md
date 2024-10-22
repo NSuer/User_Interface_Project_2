@@ -20,7 +20,7 @@ Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
 
 ## Description the project
 
-The Home Lighting Simulator 2024 is a control interface for a multiple wifi lightbulbs used in parallel. It displays to the user individual lightbulbs and their sphere of influence in a home. It allows the users to remotely control lights, either as a group or individually.
+The Home Lighting Simulator 2024 is a control interface for multiple wifi lightbulbs used in parallel. It displays to the user individual lightbulbs and their spheres of influence in a home. It allows its users to remotely control lights, either within groups or individually.
 
 ## Design Work
 
@@ -120,7 +120,7 @@ The Home Lighting Simulator 2024 is a control interface for a multiple wifi ligh
 - User needs to be able to control lightbulbs by groups
 
 ### Design Requirements
-- Functionality for organizing lightbulbs within the interface based on room or chedule
+- Functionality for organizing lightbulbs within the interface based on room or schedule
 - Provide the ability to turn multiple lightbulbs on or off simultaneously 
 - Make the name of each lightbulb customizable in the interface
 - Add customizable colors - could use a color wheel or allow the user to input color codes
@@ -150,10 +150,10 @@ Navigation and/or controls are toggleable to leave room for the main grid.
 4. User can now interact with our device's simulation.
 
 #### Hybrid sketching to illustrate the integration of the interface on a real object
-- So we're designing a smart lightbulb, a user wants to control the lightbulb via an app.
-- But since it needs to be physical and digitize something that is usually physical, it would be good to replace the light switches with our interface.
-- For our hybird sketch I will be integrating our smart lightbulb interface to replace a light switch.
-- This is my puppy Millie.
+- We are designing a smart lightbulb where the user would want to control the lightbulb via an app.
+- Since the lightbulb needs to be physical and would be challenging to digitalize, light switches would be replaced with our interface. The lightbulbs used by our interface would need to be capable of fulfilling smart capabilities.
+- For our hybird sketch, our smart lightbulb interface will replace a light switch.
+- This is Nate's puppy, Millie.
 ![Hybrid Sketch](src/pictures/HybridSketch.jpg)
 
 ### User Feedback
@@ -168,11 +168,11 @@ The Home Lighting Simulator uses a floor layout to display each of the bulbs. Ea
 
 ### Vocal Controls
 
-The Home Lighting Simulator uses a series of vocal controls (not implemented for this project) to allow the user to turn on or off lights, based upon the name of the light. It has a number of options, including Disco mode, blinking, and hue shifting!
+The Home Lighting Simulator uses a series of vocal controls (not implemented for this project) to allow the user to turn on or off lights, based upon the name of the light. It has a number of options, including disco mode, blinking, and hue shifting!
 
 ### Light Control
 
-Clicking on a light opens up the light control menu. The menu allows individual control of each light, from changing the room group to color, schedule, and brightness. 
+Clicking on a light opens up the light control menu. This menu allows individual control of each light, from changing the room group to color, schedule, and brightness. 
 
 
 ## Explanation of implementation
@@ -184,13 +184,13 @@ We have 3 main components of the UI: the map, the light control menu, and the vo
 The map is a grid which contains 4 types of tiles; lights, background, doors, walls. Clicking on a square allows the user to modify the light options. We used a svelte generated array for cols and rows, each cell being a square in the room. We chose this as it is extremely visual for the user, and is intuitive.
 
 
-The popup with controls is a modal, which allows us to have the user modify each light individually, or add it to a group. This allows the modulatrity requested by our users.
+The pop-up with controls is a modal, which gives the user the ability to modify each light individually or add them to groups. This feature provides the modulatrity requested by our users.
 
 
-Our fake voice commands we implemented as an additional panel. Shipping real time vocal processing is a processing expensive task, and would have taken longer than the project would allow. The panel adds on/off options for groups, multiple pre-programmed modes, and a scheduler for day or night time. 
+Fake voice commands were implemented as an additional panel. Shipping real time vocal processing is a processing expensive task and would have taken longer than the project would allow. The panel adds on/off options for groups, multiple pre-programmed modes, and a scheduler for day or night time. 
 
 ## AI Use
-- I used the following prompt "Using svelte and js, make me a component that will allow me to design floorplans for houses. All floorplans are one floor. Have options for doors, lights, and walls" to get the basic room maker. It was functional. This was useful but only will be used as a basis for future work. Here is an image of what was made
+- Nate used the following prompt "Using svelte and js, make me a component that will allow me to design floorplans for houses. All floorplans are one floor. Have options for doors, lights, and walls" to get the basic room maker. It was functional. This was useful but only will be used as a basis for future work. Here is an image of what was made
 ![Room Maker](src/pictures/basicRoomMaker.png)
 - Used chatgpt to make svg icon for power button and mic button
 - TODO
