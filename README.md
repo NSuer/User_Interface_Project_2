@@ -1,15 +1,4 @@
-# User_Interface_Project_2
-
-# TO-DO
-- A title for the project, your names, and a link to your project write up. (In the GUI)
-- In the documentation
-  -  Create a list of the controls you are including in this UI, the indicators you want display, and how these connect to the design goals you captured. (Label level 0)
-  -  Demo video
-- Levels 2-4 and beyond: 
-  - fake voice commands - Nate
-  - adding and editing lights - Nate
-  - Scenarios - Nate
-  - Day Play through - Nate
+# User_Interface_Project_2 - Lightbulb Simulator 2024
 
 # Helpful Commands
 - npm run deploy - This will build and deploy the github page public website
@@ -214,7 +203,8 @@ Real time vocal analysis and word parsing is extremely expensive. Realistically,
 
 ## Demo Video
 - The easiest way to record this is with a screen capture tool, which also captures audio- such as Quicktime.  Use a voiceover to explain your application.  Include the name of the project, your name, the project components, and how your application works.  You can present it on your webpage or on youtube, but it must be linked on your webpage. 
-- TODO -> Sam has an alarm set for 9pm, Sunday to record it.
+
+You can see our video [here!](https://uc.mediaspace.kaltura.com/media/t/1_o38sgpyv)
 
 ## Link to source code and public hosted application
 - https://github.com/NSuer/User_Interface_Project_2
