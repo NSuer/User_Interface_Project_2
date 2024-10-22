@@ -141,7 +141,7 @@ Navigation and/or controls are toggleable to leave room for the main grid.
 #### Hybrid sketching to illustrate the integration of the interface on a real object
 - We are designing a smart lightbulb where the user would want to control the lightbulb via an app.
 - Since the lightbulb needs to be physical and would be challenging to digitalize, light switches would be replaced with our interface. The lightbulbs used by our interface would need to be capable of fulfilling smart capabilities.
-- For our hybird sketch, our smart lightbulb interface will replace a light switch.
+- For our hybrid sketch, our smart lightbulb interface will replace a light switch.
 - This is Nate's puppy, Millie.
 ![Hybrid Sketch](src/pictures/HybridSketch.jpg)
 
@@ -153,11 +153,11 @@ Navigation and/or controls are toggleable to leave room for the main grid.
 - Include plenty of screenshots to illustrate your interface and different actions users can perform within it
 ### Floor Layout
 
-The Home Lighting Simulator uses a floor layout to display each of the bulbs. Each room is a grouping of lightbulbs, and can be controlled remotely using the Simulator. 
+The Home Lighting Simulator uses a floor layout to display each of the bulbs. Each room is a grouping of lightbulbs and can be controlled remotely using the Simulator. 
 
 ### Vocal Controls
 
-The Home Lighting Simulator uses a series of vocal controls (not implemented for this project) to allow the user to turn on or off lights, based upon the name of the light. It has a number of options, including disco mode, blinking, and hue shifting!
+The Home Lighting Simulator uses a series of vocal controls (not implemented for this project) to allow the user to turn lights on and off, based on the name of the light. There are a number of options, including disco mode, blinking, and hue shifting!
 
 ### Light Control
 
@@ -170,33 +170,33 @@ We have 3 main components of the UI: the map, the light control menu, and the vo
 
 ### The Map
 
-The map is a grid which contains 4 types of tiles; lights, background, doors, walls. Clicking on a square allows the user to modify the light options. We used a svelte generated array for cols and rows, each cell being a square in the room. We chose this as it is extremely visual for the user, and is intuitive.
+The map is a grid which contains 4 types of tiles; lights, background, doors, and walls. Clicking on a square allows the user to modify the light options. We used a svelte generated array for columns and rows, with each cell being a square in the room. We chose this approach as it is both intuitive and provides a good visual for the user.
 
 
 The pop-up with controls is a modal, which gives the user the ability to modify each light individually or add them to groups. This feature provides the modulatrity requested by our users.
 
 
-Fake voice commands were implemented as an additional panel. Shipping real time vocal processing is a processing expensive task and would have taken longer than the project would allow. The panel adds on/off options for groups, multiple pre-programmed modes, and a scheduler for day or night time. 
+Fake voice commands were implemented as an additional panel. Shipping real time vocal processing is a processing-expensive task and would have taken longer than the project would allow. The panel adds on/off options for groups, multiple pre-programmed modes, and a scheduler for day or night time. 
 
 ## AI Use
-- Nate used the following prompt "Using svelte and js, make me a component that will allow me to design floorplans for houses. All floorplans are one floor. Have options for doors, lights, and walls" to get the basic room maker. It was functional. This was useful but only will be used as a basis for future work. Here is an image of what was made
+- Nate used the following prompt "Using svelte and js, make me a component that will allow me to design floorplans for houses. All floorplans are one floor. Have options for doors, lights, and walls" to get the basic room maker. It was functional. This was useful but only will be used as a basis for future work. Here is an image of what was made:
 ![Room Maker](src/pictures/basicRoomMaker.png)
-- Used chatgpt to make svg icon for power button and mic button
-- Used copilot's autocomplete feature for a lot of code
+- ChatGPT was used to make the svg icons for the power button and the mic button
+- GitHub Copilot's autocomplete feature was used to speed up the coding process
 
 ## Future work
 - No project is ever fully done. What would you do next?  This is also a place to discuss the work you attempted but could not fully complete before the project deadline- include screenshots to illustrate and document your progress. 
 ### User Interface
 
-For the user interface, there is a couple of things we would like to overhaul. First, the vocal commands should have a UI to accompany it, and allow the user to use non-vocal commands to accessing functionality such as disco mode, rainbow, etc.
+For the user interface, there are a couple of things we would like to overhaul. First, the vocal commands should have a UI to accompany them. There should also be a way to allow the user to use non-vocal commands to access functionality such as disco mode, rainbow, etc.
 
 ### Volumetric Lighting Simulation
 
-Our lighting simulation is completely grid based. This lacks the definite detail we would like to have for light rays to go arounds wall. We currently only check in the x/y direction, casting a ray in the positive, negative xy directions. Instead, we should cast rays from each light and then use that calculation to draw our lights. This would be a new canvas object which would be shipped as web assembly for the speed increases.
+Our lighting simulation is completely grid based. This feature lacks the definite detail we would like to have for light rays to go arounds walls. We currently only check in the x/y direction, casting a ray in the positive and negative xy directions. Instead, we should cast rays from each light and then use that calculation to draw our lights. This would be a new canvas object which would be shipped as web assembly for the speed increases.
 
 ### Firmware Controllers
 
-It would be way cooler if this worked with real lightbulbs... Well we could make this happen! A number of wifi lightbulbs do have their own apis, we have also the option of writing a controller for any open source software!
+It would be way cooler if this worked with real lightbulbs... Well we could make this happen! A number of wifi lightbulbs do have their own APIs. We also have the option of writing a controller for any open source software!
 
 ### Vocal Interface
 Real time vocal analysis and word parsing is extremely expensive. Realistically, we would need to ship this as web assembly. It simply has too many performance issues currently.
@@ -226,15 +226,6 @@ Group members: Nathan Suer, Sam Weese, William Braun, Owen Richards
     - There are no conflicts we know of.
 - How will you divide the work? 
     - For now, we will divide work based on skillsets due to not knowing the full extent of our project. As the project goes on, we will attempt to keep the workloads balanced while providing support to those who need it. 
-    - Week 1 goals:
-        - Sam 
-            - Interviews
-        - Owen
-            - General UI layout
-        - Nate 
-            - Project setup and github repo
-        - William 
-            - User needs 
         
 
 
