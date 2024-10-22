@@ -193,7 +193,7 @@ Fake voice commands were implemented as an additional panel. Shipping real time 
 - Nate used the following prompt "Using svelte and js, make me a component that will allow me to design floorplans for houses. All floorplans are one floor. Have options for doors, lights, and walls" to get the basic room maker. It was functional. This was useful but only will be used as a basis for future work. Here is an image of what was made
 ![Room Maker](src/pictures/basicRoomMaker.png)
 - Used chatgpt to make svg icon for power button and mic button
-- TODO
+- Used copilot's autocomplete feature for a lot of code
 
 ## Future work
 - No project is ever fully done. What would you do next?  This is also a place to discuss the work you attempted but could not fully complete before the project deadline- include screenshots to illustrate and document your progress. 
