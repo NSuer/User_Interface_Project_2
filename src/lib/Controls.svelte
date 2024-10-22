@@ -22,7 +22,7 @@
             <div class="titleAndImg">
                 <h1 class="title">The Smart Lightbulb</h1>
                 <img
-                src="src/assets/powered-bulb.png"
+                src="public/powered-bulb.png"
                 width="50px"
                 height="50px"
                 alt=""
